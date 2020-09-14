@@ -13,19 +13,15 @@ jobs:
           channel: 'beta'
       - name: Upgrades flutter
         run: flutter upgrade
-        working-directory: ./example
       - name: Enable Web
         run: flutter config --enable-web
-        working-directory: ./example
       - name: Install dependencies
-        run: flutter packages get
-        working-directory: ./example
+        run: flutter pub get
       - name: Build Web
         run: flutter build web
-        working-directory: ./example
       - name: Deploy
         run: |
-          cd example/build/web
+          cd build/web
           git init
           git config user.name  "Pedro Soares"
           git config user.email "phcs.971@gmail.com"
