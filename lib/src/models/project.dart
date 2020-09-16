@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/widgets.dart';
+
 import 'gallery_item.dart';
 import 'link.dart';
 
@@ -7,16 +9,16 @@ enum ProjectTech {
   python, //0
   flutter, //1
   cpp, //2
-  reactjs, //3
-  reactnative, //4
-  nodejs, //5
-  witai, //6
-  sqlite, //7
-  kivy, //8
-  firebase, //9
-  woodworks, //10
-  others //11
+  react, //3
+  nodejs, //4
+  witai, //5
+  sqlite, //6
+  kivy, //7
+  firebase, //8
+  woodworks, //9
+  others //10
 }
+
 enum Status { tostart, wip, paused, closed }
 enum Cause { pro, competition, personal, academics }
 
@@ -48,10 +50,11 @@ class Project {
         start = map['start'] != null ? DateTime.fromMillisecondsSinceEpoch(map['start']) : null,
         end = map['end'] != null ? DateTime.fromMillisecondsSinceEpoch(map['end']) : null,
         status = Status.values[map['status']],
-        links = map['links']?.map((l) => Link.fromMap(l))?.toList(),
-        gallery = map['gallery']?.map((g) => GalleryItem.fromMap(g))?.toList(),
+        links = (map['links'] as List)?.map<Link>((l) => Link.fromMap(l))?.toList(),
+        gallery =
+            (map['gallery'] as List)?.map<GalleryItem>((g) => GalleryItem.fromMap(g))?.toList(),
         cause = Cause.values[map['cause']],
-        techs = map['techs'].map((i) => ProjectTech.values[i]).toList(),
+        techs = (map['techs'] as List).map<ProjectTech>((i) => ProjectTech.values[i]).toList(),
         mainColor = Color(map['mainColor']),
         backgroundColor = Color(map['backgroundColor']);
 

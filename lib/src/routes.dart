@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'utils/logger.dart';
 import 'pages/home/home.dart';
 import 'pages/info/info.dart';
+import 'pages/conquistas/conquistas.dart';
 
-//TODO ROUTES
 const HomeRoute = '/';
 const InfoRoute = '/info';
+const ConquistasRoute = '/conquistas';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   Route<dynamic> _page(Widget widget) => FadePageRoute(page: widget, settings: settings);
@@ -18,6 +19,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return _page(HomePage());
     case InfoRoute:
       return _page(InfoPage());
+    case ConquistasRoute:
+      return _page(ConquistasPage());
     default: //TODO On Unknown Route
       return _page(Container());
   }

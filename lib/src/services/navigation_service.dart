@@ -11,5 +11,5 @@ class NavigationService {
   Future<dynamic> push(String routeName, [dynamic arguments]) =>
       navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
 
-  void pop(dynamic result) => navigatorKey.currentState.pop(result);
+  void pop([dynamic result]) => navigatorKey.currentState.pop(result);
 }

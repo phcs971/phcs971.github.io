@@ -9,7 +9,9 @@ GetIt locator = GetIt.instance;
 
 Future locatorSetup() async {
   log.v("<Locator> Setup Start");
+  log.v("<Locator> Registering Firestore Service");
+  locator.registerLazySingleton<FirestoreService>(() => FirestoreService());
   log.v("<Locator> Registering Navigation Service");
-  locator.registerSingleton<NavigationService>(NavigationService());
+  locator.registerLazySingleton<NavigationService>(() => NavigationService());
   log.v("<Locator> Setup Finish");
 }
