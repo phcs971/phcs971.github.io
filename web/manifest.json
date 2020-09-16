@@ -1,11 +1,11 @@
 {
-    "name": "portifolio",
-    "short_name": "portifolio",
+    "name": "Portifólio Pessoal",
+    "short_name": "Portifólio",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Portifólio Pessoal de Pedro Henrique Cordeiro Soares..",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

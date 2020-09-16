@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 
-abstract class GalleryItem {
-  Widget build(BuildContext context);
-  String toString();
-}
+enum GalleryType { image, video }
 
-class GalleryImage extends GalleryItem {
+class GalleryItem {
   final String url;
+  final GalleryType type;
 
-  GalleryImage(this.url);
+  GalleryItem.fromMap(Map<String, dynamic> map)
+      : url = map['url'],
+        type = GalleryType.values[map['type']];
 
-  @override
-  Widget build(BuildContext context) {
-    return Image.network(url);
-  }
+  Map<String, dynamic> toMap() => {'url': url, 'type': type.index};
 
-  @override
-  String toString() {
-    return url;
-  }
+  Widget build(BuildContext context) => Image.network(url);
 }
