@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "531371008619",
+    "firebase_url": "https://portifolio-phcs971.firebaseio.com",
+    "project_id": "portifolio-phcs971",
+    "storage_bucket": "portifolio-phcs971.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531371008619:android:b25356a7f27528f168c72e",
+        "android_client_info": {
+          "package_name": "io.github.phcs971"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531371008619-sj95r142e522vccc20ajtrdtl89ao0qr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.phcs971",
+            "certificate_hash": "41d7facda8750a90597998a31b1ec4e8f20f08f9"
+          }
+        },
+        {
+          "client_id": "531371008619-64d11egg2vt7s6t32rog3g5hjp7r0ceh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbKC1N4c4MYfOUPMq3OsETsnjMjMKzTJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531371008619-64d11egg2vt7s6t32rog3g5hjp7r0ceh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

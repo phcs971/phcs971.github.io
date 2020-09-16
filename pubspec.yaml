@@ -21,6 +21,7 @@ dependencies:
   firebase_core: ^0.5.0
   cloud_firestore: ^0.14.0+2
   firebase_auth: ^0.18.0+1
+  cloud_firestore_web: ^0.2.0+1
 
 dev_dependencies:
   flutter_test:
@@ -29,9 +30,9 @@ dev_dependencies:
 
 #flutter pub run flutter_launcher_icons:main
 flutter_icons:
-  ios: true
+  ios: false
   android: true
-  # image_path: "assets/images/icon.png"
+  image_path: "assets/images/iconphcs.png"
 
 flutter:
   uses-material-design: true
