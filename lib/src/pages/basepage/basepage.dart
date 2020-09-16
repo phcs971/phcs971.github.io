@@ -33,10 +33,8 @@ class BasePage extends StatelessWidget {
     {'icon': AntDesign.instagram, 'url': 'https://www.instagram.com/pedroh.cs/'},
     {'icon': AntDesign.twitter, 'url': 'https://twitter.com/phcs971'},
     {'icon': MaterialCommunityIcons.gmail, 'url': 'mailto:phcs.971@gmail.com'},
-    if (Platform.isAndroid || Platform.isIOS)
-      {'icon': FontAwesome.whatsapp, 'url': 'https://wa.me/5541999877804'},
-    if (Platform.isAndroid || Platform.isIOS)
-      {'icon': FontAwesome.phone, 'url': 'tel:+5541999877804'},
+    {'icon': FontAwesome.whatsapp, 'url': 'https://wa.me/5541999877804'},
+    {'icon': FontAwesome.phone, 'url': 'tel:+5541999877804'},
   ];
 
   @override
