@@ -1,9 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'package:universal_io/io.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
