@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../../locators.dart';
 import '../../../utils/utils.dart';
 import '../../../models/project.dart';
 
@@ -14,94 +15,98 @@ class ProjectItem extends StatelessWidget {
   Widget build(BuildContext context) {
     IconData techIcon = kTechToIcon[project.techs[tick % project.techs.length]];
     IconData statusIcon = kStatusToIcon[project.status];
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: project.backgroundColor,
-        boxShadow: kElevationToShadow[2],
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          //Background
-          ClipRRect(
-            child: project.gallery[0].build(context),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          //Hexagon
-          Transform.rotate(
-            angle: pi / 2,
-            child: ClipPath(
-              clipper: HexagonClipper(),
-              child: Container(color: Colors.black38, height: 100, width: 50 * sqrt(3)),
-            ),
-          ),
-          //Title
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 35,
-            child: Center(
-              child: FittedBox(
-                child: Text(
-                  project.title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-              ),
-            ),
-            // padding: EdgeInsets.all(8),
-          ),
-          //Techs
-          Positioned(
-            bottom: 0,
-            left: 0,
-            height: 36,
-            width: 36,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-              child: Container(
-                padding: EdgeInsets.only(right: 2, top: 2),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  boxShadow: kElevationToShadow[4],
-                ),
-                child: Icon(techIcon, color: Colors.white),
-              ),
-            ),
-          ),
-          //Status
-          Positioned(
-            top: 0,
-            right: 0,
-            height: 36,
-            width: 36,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-              child: Container(
-                padding: EdgeInsets.only(left: 2, bottom: 2),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  boxShadow: kElevationToShadow[4],
-                ),
-                child: Icon(statusIcon, color: Colors.white),
-              ),
-            ),
-          ),
-          //Border
-          Container(
-            decoration: BoxDecoration(
+    return InkWell(
+      onTap: () => locator<NavigationService>().push("$HomeRoute/${project.id}"),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: project.backgroundColor,
+          boxShadow: kElevationToShadow[2],
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            //Background
+            ClipRRect(
+              child: project.gallery[0].build(context),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Theme.of(context).primaryColor, width: 2),
             ),
-          )
-        ],
+            //Hexagon
+            Transform.rotate(
+              angle: pi / 2,
+              child: ClipPath(
+                clipper: HexagonClipper(),
+                child: Container(color: Colors.black38, height: 100, width: 50 * sqrt(3)),
+              ),
+            ),
+            //Title
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 35,
+              child: Center(
+                child: FittedBox(
+                  child: Text(
+                    project.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                ),
+              ),
+              // padding: EdgeInsets.all(8),
+            ),
+            //Techs
+            Positioned(
+              bottom: 0,
+              left: 0,
+              height: 36,
+              width: 36,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Container(
+                  padding: EdgeInsets.only(right: 2, top: 2),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    boxShadow: kElevationToShadow[4],
+                  ),
+                  child: Icon(techIcon, color: Colors.white),
+                ),
+              ),
+            ),
+            //Status
+            Positioned(
+              top: 0,
+              right: 0,
+              height: 36,
+              width: 36,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Container(
+                  padding: EdgeInsets.only(left: 2, bottom: 2),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    boxShadow: kElevationToShadow[4],
+                  ),
+                  alignment: Alignment.center,
+                  child: Icon(statusIcon, color: Colors.white),
+                ),
+              ),
+            ),
+            //Border
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Theme.of(context).primaryColor, width: 2),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

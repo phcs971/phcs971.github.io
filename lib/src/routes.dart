@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'components/error.dart';
 import 'utils/logger.dart';
 import 'pages/home/home.dart';
 import 'pages/info/info.dart';
 import 'pages/conquistas/conquistas.dart';
+import 'pages/project/project.dart';
 
-const HomeRoute = '/';
+const StartupRoute = '/';
+const HomeRoute = '/projetos';
 const InfoRoute = '/info';
 const ConquistasRoute = '/conquistas';
 
@@ -14,15 +17,20 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
   log.i('<Router> To ${settings.name}');
 
-  switch (settings.name) {
+  List<String> routeArgs = settings.name.split('/').where((str) => str.isNotEmpty).toList();
+  String routeName = routeArgs.isEmpty ? "/" : "/${routeArgs.removeAt(0)}";
+
+  switch (routeName) {
     case HomeRoute:
+      if (routeArgs.isNotEmpty) return _page(ProjectPage(routeArgs[0]));
       return _page(HomePage());
+    case ConquistasRoute:
+      if (routeArgs.isNotEmpty) return _page(Container());
+      return _page(ConquistasPage());
     case InfoRoute:
       return _page(InfoPage());
-    case ConquistasRoute:
-      return _page(ConquistasPage());
-    default: //TODO On Unknown Route
-      return _page(Container());
+    default:
+      return _page(ErroWidget("404\nPágina Não Encontrada"));
   }
 }
 

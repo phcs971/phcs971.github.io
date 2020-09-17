@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portifolio/src/pages/home/components/project_item.dart';
 
+import '../../components/components.dart';
 import '../basepage/basepage.dart';
+import 'components/project_item.dart';
 import 'cubit/home_cubit.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, state) {
           List<Widget> children;
           if (state is HomeInitial) {
-            children = [SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()))];
+            children = [LoadingSliver()];
           } else if (state is HomeLoaded) {
             children = [
               SliverPadding(
@@ -57,9 +58,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ];
-          }
-          if (state is HomeError) {
-            children = [SliverToBoxAdapter(child: Text(state.message))];
+          } else if (state is HomeError) {
+            children = [ErrorSliver(state.message)];
           }
           return BasePage(children: children, index: 0, scKey: k);
         },

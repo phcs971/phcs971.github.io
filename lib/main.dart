@@ -38,3 +38,16 @@ void main() async {
 
   runApp(PortfolioApp());
 }
+
+//TODOZAO
+//18 Sex -> Pagina Projeto
+//19 Sab -> Modelo Conquistas
+//20 Dom ->
+//21 Seg -> Pagina Conquistas
+//22 Ter -> Pagina Conquista Unica
+//23 Qua -> Pagina Info
+//24 Qui -> Criar Função P/ Adcionar
+//25 Sex -> Popular Projetos
+//26 Sab -> Popular Conquistas
+//27 Dom ->
+//28 Seg -> Gravar video

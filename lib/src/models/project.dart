@@ -43,6 +43,8 @@ class Project {
   final Color mainColor;
   final Color backgroundColor;
 
+  final bool isOther;
+
   Project.fromMap(Map<String, dynamic> map)
       : id = map['id'],
         title = map['title'],
@@ -56,7 +58,8 @@ class Project {
         cause = Cause.values[map['cause']],
         techs = (map['techs'] as List).map<ProjectTech>((i) => ProjectTech.values[i]).toList(),
         mainColor = Color(map['mainColor']),
-        backgroundColor = Color(map['backgroundColor']);
+        backgroundColor = Color(map['backgroundColor']),
+        isOther = map['isOther'];
 
   Map<String, dynamic> toMap() => {
         'id': id,
@@ -71,5 +74,6 @@ class Project {
         'techs': techs.map((i) => i.index).toList(),
         'mainColor': mainColor.value,
         'backgroundColor': backgroundColor.value,
+        'isOther': isOther,
       };
 }
