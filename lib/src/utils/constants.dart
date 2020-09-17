@@ -27,8 +27,8 @@ const kTechToIcon = {
 };
 
 const kStatusToIcon = {
-  Status.tostart: AntDesign.clockcircleo,
-  Status.wip: AntDesign.doubleright,
-  Status.paused: AntDesign.pause,
-  Status.closed: AntDesign.check,
+  Status.tostart: MaterialCommunityIcons.progress_wrench,
+  Status.wip: MaterialCommunityIcons.progress_clock,
+  Status.paused: MaterialCommunityIcons.progress_alert,
+  Status.closed: MaterialCommunityIcons.progress_check,
 };
