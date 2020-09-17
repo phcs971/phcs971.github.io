@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -100,7 +97,8 @@ class BasePage extends StatelessWidget {
                           child: Center(
                             child: FittedBox(
                               child: Text(
-                                "Copyright © 2020 Pedro Henrique Cordeiro Soares. Todos os direitos reservados.",
+                                "Copyright © 2020 Pedro Henrique Cordeiro Soares. Todos os direitos reservados.\nVersão 0.1.1",
+                                textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black54),
                               ),
                             ),
@@ -142,8 +140,8 @@ class BasePage extends StatelessWidget {
               Container(
                 height: 75,
                 color: Colors.white,
-                padding: EdgeInsets.fromLTRB(25, 8, fullScreen ? 0 : 25, 8),
-                margin: fullScreen ? EdgeInsets.only(right: 75) : EdgeInsets.zero,
+                padding: EdgeInsets.fromLTRB(25, 8, fullScreen ? 75 : 25, 8),
+                // margin: fullScreen ? EdgeInsets.only(right: 74) : EdgeInsets.zero,
                 child: Row(
                   children: [
                     //Logo
