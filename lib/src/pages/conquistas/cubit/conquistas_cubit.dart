@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../models/project.dart';
+import '../../../models/models.dart';
 import '../../../utils/utils.dart';
 import '../../../locators.dart';
 
-part 'home_state.dart';
+part 'conquistas_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial()) {
+class ConquistasCubit extends Cubit<ConquistasState> {
+  ConquistasCubit() : super(ConquistasInitial()) {
     load();
   }
 
@@ -16,9 +16,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   void load() async {
     try {
-      emit(HomeInitial());
-      final projects = await firestore.getProjects();
-      emit(HomeLoaded(projects));
+      emit(ConquistasInitial());
+      final conq = await firestore.getConquistas();
+      emit(ConquistasLoaded(conq));
     } catch (e) {
       String m;
       try {
@@ -26,8 +26,8 @@ class HomeCubit extends Cubit<HomeState> {
       } catch (_) {
         m = e.toString();
       }
-      log.e("<HomeCubit> $m");
-      emit(HomeError(m));
+      log.e("<ConquistasCubit> $m");
+      emit(ConquistasError(m));
     }
   }
 }

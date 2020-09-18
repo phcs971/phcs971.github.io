@@ -6,6 +6,7 @@ import 'pages/home/home.dart';
 import 'pages/info/info.dart';
 import 'pages/conquistas/conquistas.dart';
 import 'pages/project/project.dart';
+import 'pages/startup/startup.dart';
 
 const StartupRoute = '/';
 const HomeRoute = '/projetos';
@@ -21,6 +22,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
   String routeName = routeArgs.isEmpty ? "/" : "/${routeArgs.removeAt(0)}";
 
   switch (routeName) {
+    case StartupRoute:
+      return _page(StartupPage());
     case HomeRoute:
       if (routeArgs.isNotEmpty) return _page(ProjectPage(routeArgs[0]));
       return _page(HomePage());
@@ -30,6 +33,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case InfoRoute:
       return _page(InfoPage());
     default:
+      log.e("<Router> Unknown Route: $routeName");
       return _page(ErroWidget("404\nPágina Não Encontrada"));
   }
 }

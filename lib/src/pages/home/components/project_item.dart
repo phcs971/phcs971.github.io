@@ -98,13 +98,6 @@ class ProjectItem extends StatelessWidget {
                 ),
               ),
             ),
-            //Border
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Theme.of(context).primaryColor, width: 2),
-              ),
-            )
           ],
         ),
       ),

@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     timer = Timer.periodic(Duration(seconds: 2), (timer) {
-      if (k.currentState.isEndDrawerOpen) return;
+      if (k?.currentState == null || k.currentState.isEndDrawerOpen) return;
       setState(() => tick++);
     });
   }

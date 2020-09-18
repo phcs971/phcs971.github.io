@@ -12,7 +12,7 @@ class PortfolioApp extends StatelessWidget {
     return MaterialApp(
       title: longAppName,
       theme: themeData,
-      initialRoute: HomeRoute,
+      initialRoute: StartupRoute,
       onGenerateRoute: onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       debugShowCheckedModeBanner: false,

@@ -39,15 +39,15 @@ void main() async {
   runApp(PortfolioApp());
 }
 
-//TODOZAO
-//18 Sex -> Pagina Projeto
-//19 Sab -> Modelo Conquistas
+//TODO ZAO
+//18 Sex ->
+//19 Sab ->
 //20 Dom ->
-//21 Seg -> Pagina Conquistas
-//22 Ter -> Pagina Conquista Unica
-//23 Qua -> Pagina Info
-//24 Qui -> Criar Função P/ Adcionar
-//25 Sex -> Popular Projetos
+//21 Seg -> Pagina Info
+//22 Ter -> Criar Função P/ Adcionar
+//23 Qua -> Popular Projetos
+//24 Qui -> Popular Projetos
+//25 Sex -> Popular Conquistas
 //26 Sab -> Popular Conquistas
 //27 Dom ->
 //28 Seg -> Gravar video

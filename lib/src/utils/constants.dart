@@ -32,3 +32,57 @@ const kStatusToIcon = {
   Status.paused: MaterialCommunityIcons.progress_alert,
   Status.closed: MaterialCommunityIcons.progress_check,
 };
+
+const kLinkToIcon = {
+  LinkType.github: AntDesign.github,
+  LinkType.link: Entypo.link,
+  LinkType.linkedin: AntDesign.linkedin_square,
+  LinkType.facebook: AntDesign.facebook_square,
+  LinkType.instagram: AntDesign.instagram,
+  LinkType.twitter: AntDesign.twitter,
+  LinkType.email: Icons.mail,
+  LinkType.whatsapp: FontAwesome.whatsapp,
+  LinkType.phone: FontAwesome.phone,
+  LinkType.web: MaterialCommunityIcons.web,
+};
+
+const kTechToString = {
+  ProjectTech.python: "Python",
+  ProjectTech.flutter: "Flutter",
+  ProjectTech.cpp: "C++",
+  ProjectTech.react: "React",
+  ProjectTech.nodejs: "NodeJs",
+  ProjectTech.witai: "Wit Ai",
+  ProjectTech.sqlite: "SQLite",
+  ProjectTech.kivy: "Kivy",
+  ProjectTech.firebase: "Firebase",
+  ProjectTech.woodworks: "Trabalho Manual",
+  ProjectTech.others: "Outros",
+};
+
+const kStatusToString = {
+  Status.tostart: "Ainda não Iniciado",
+  Status.wip: "Em Progresso",
+  Status.paused: "Pausado",
+  Status.closed: "Concluído",
+};
+
+const kLinkToString = {
+  LinkType.github: "GitHub",
+  LinkType.link: "Arquivo",
+  LinkType.linkedin: "Linkedin",
+  LinkType.facebook: "Facebook",
+  LinkType.instagram: "Instagram",
+  LinkType.twitter: "Twitter",
+  LinkType.email: "Email",
+  LinkType.whatsapp: "WhatsApp",
+  LinkType.phone: "Telefone",
+  LinkType.web: "Página de Acesso"
+};
+
+const kCauseToString = {
+  Cause.academics: "Acadêmico",
+  Cause.competition: "para Competição",
+  Cause.personal: "Pessoal",
+  Cause.pro: "Profissional",
+};

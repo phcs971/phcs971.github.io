@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/utils.dart';
+import '../../models/models.dart';
 import '../base.dart';
 import '../../locators.dart';
 
@@ -21,22 +21,23 @@ class BasePage extends StatelessWidget {
   ];
 
   static final links = [
-    {'icon': AntDesign.github, 'url': 'https://github.com/phcs971'},
-    {
-      'icon': AntDesign.linkedin_square,
-      'url': 'https://www.linkedin.com/in/pedro-henrique-cordeiro-soares-835a2a179/',
-    },
-    {'icon': AntDesign.facebook_square, 'url': 'https://www.facebook.com/pedroh.csoares'},
-    {'icon': AntDesign.instagram, 'url': 'https://www.instagram.com/pedroh.cs/'},
-    {'icon': AntDesign.twitter, 'url': 'https://twitter.com/phcs971'},
-    {'icon': MaterialCommunityIcons.gmail, 'url': 'mailto:phcs.971@gmail.com'},
-    {'icon': FontAwesome.whatsapp, 'url': 'https://wa.me/5541999877804'},
-    {'icon': FontAwesome.phone, 'url': 'tel:+5541999877804'},
+    Link('https://github.com/phcs971', LinkType.github),
+    Link(
+      'https://www.linkedin.com/in/pedro-henrique-cordeiro-soares-835a2a179/',
+      LinkType.linkedin,
+    ),
+    Link('https://www.facebook.com/pedroh.csoares', LinkType.facebook),
+    Link('https://www.instagram.com/pedroh.cs/', LinkType.instagram),
+    Link('https://twitter.com/phcs971', LinkType.twitter),
+    Link('mailto:phcs.971@gmail.com', LinkType.email),
+    Link('https://wa.me/5541999877804', LinkType.whatsapp),
+    Link('tel:+5541999877804', LinkType.phone),
   ];
 
   @override
   Widget build(BuildContext context) {
     final key = scKey == null ? GlobalKey<ScaffoldState>() : scKey;
+
     return ResponsiveBuilder(
       (context, info) {
         List<Widget> pagesButtons = pages.map<Widget>((item) {
@@ -57,17 +58,19 @@ class BasePage extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                     ),
               ),
-              onPressed: isCurrent ? null : () => locator<NavigationService>().to(item['route']),
+              onPressed:
+                  isCurrent ? null : () => locator<NavigationService>().popAllTo(item['route']),
             ),
           );
         }).toList();
 
         List<Widget> linksButtons = links.map<Widget>((link) {
           return IconButton(
-            icon: Icon(link['icon']),
+            icon: Icon(kLinkToIcon[link.type], color: Theme.of(context).primaryColor),
+            tooltip: kLinkToString[link.type],
             onPressed: () async {
               try {
-                await launch(link['url']);
+                await launch(link.url);
               } catch (_) {
                 cannotLaunchUrl(context);
               }
@@ -172,6 +175,7 @@ class BasePage extends StatelessWidget {
                       SizedBox(width: 25),
                       //Drawer
                       IconButton(
+                        tooltip: 'Menu',
                         onPressed: () {
                           key.currentState.openEndDrawer();
                         },
