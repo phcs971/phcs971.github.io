@@ -16,7 +16,7 @@ class StartupCubit extends Cubit<StartupState> {
 
   void _startup() async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (kIsWeb) return nav.to(HomeRoute);
+      if (kIsWeb) return nav.to(InfoRoute);
       //TODO Em Caso de Ser o App Mobile Verificar Se Existe Usuário do Google e Logar se Necessario
     });
   }

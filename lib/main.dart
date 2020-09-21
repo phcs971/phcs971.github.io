@@ -39,11 +39,8 @@ void main() async {
   runApp(PortfolioApp());
 }
 
-//TODO ZAO
-//18 Sex ->
-//19 Sab ->
-//20 Dom ->
-//21 Seg -> Pagina Info
+//TODOZAO
+//21 Seg ->
 //22 Ter -> Criar Função P/ Adcionar
 //23 Qua -> Popular Projetos
 //24 Qui -> Popular Projetos

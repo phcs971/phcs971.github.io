@@ -4,7 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 import 'package:portifolio/src/models/models.dart';
 
-import 'fonts/ExtraTech/extra_tech_icons_icons.dart';
+import 'icons/ExtraTech/extra_tech_icons_icons.dart';
 
 const primaryColor = Color(0xFF11144D); //    #11144D
 const backgroundColor = Color(0xFFFFFFFF); // #FFFFFF
