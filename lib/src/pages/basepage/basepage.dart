@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -38,6 +39,9 @@ class BasePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final key = scKey == null ? GlobalKey<ScaffoldState>() : scKey;
 
+    final nav = locator<NavigationService>();
+    final auth = locator<AuthService>();
+
     return ResponsiveBuilder(
       (context, info) {
         List<Widget> pagesButtons = pages.map<Widget>((item) {
@@ -58,8 +62,7 @@ class BasePage extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                     ),
               ),
-              onPressed:
-                  isCurrent ? null : () => locator<NavigationService>().popAllTo(item['route']),
+              onPressed: isCurrent ? null : () => nav.popAllTo(item['route']),
             ),
           );
         }).toList();
@@ -77,6 +80,17 @@ class BasePage extends StatelessWidget {
             },
           );
         }).toList();
+
+        Widget logOutButton = IconButton(
+          icon: Icon(Icons.logout, color: Theme.of(context).primaryColor),
+          tooltip: "Sair",
+          onPressed: () async {
+            await auth.logOut();
+            nav.popAllTo(StartupRoute);
+          },
+        );
+
+        Widget divider = Container(height: 1, color: Colors.black45);
 
         bool fullScreen = info.localWidgetSize.width > 1050;
         return Scaffold(
@@ -100,7 +114,7 @@ class BasePage extends StatelessWidget {
                           child: Center(
                             child: FittedBox(
                               child: Text(
-                                "Copyright © 2020 Pedro Henrique Cordeiro Soares. Todos os direitos reservados.\nVersão 0.1.1",
+                                "Copyright © 2020 Pedro Henrique Cordeiro Soares. Todos os direitos reservados.\nVersão $version",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black54),
                               ),
@@ -126,7 +140,14 @@ class BasePage extends StatelessWidget {
                   height: double.infinity,
                   color: Colors.white,
                   child: SingleChildScrollView(
-                    child: Column(children: [SizedBox(height: 75), ...linksButtons]),
+                    child: Column(children: [
+                      SizedBox(height: 75),
+                      ...linksButtons,
+                      if (!kIsWeb) ...[
+                        divider,
+                        logOutButton,
+                      ],
+                    ]),
                   ),
                 ),
               ],
@@ -198,12 +219,20 @@ class BasePage extends StatelessWidget {
                     child: Column(
                       children: [
                         ...pagesButtons,
-                        Container(height: 1, color: Colors.black45),
-                        ...linksButtons
+                        divider,
+                        ...linksButtons,
+                        if (!kIsWeb) ...[divider, logOutButton],
                       ],
                     ),
                   ),
                 ),
+          floatingActionButton: !kIsWeb && auth.currentUser.admin && [0, 1].contains(index)
+              ? FloatingActionButton(
+                  onPressed: () {},
+                  backgroundColor: Theme.of(context).primaryColor,
+                  child: Icon(Icons.add),
+                )
+              : null,
         );
       },
     );

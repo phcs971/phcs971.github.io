@@ -67,7 +67,7 @@ class InfoPage extends StatelessWidget {
     );
   }
 
-  Widget buildSpace() => SizedBox(height: 10);
+  Widget buildSpace() => SizedBox(height: 15);
 
   @override
   Widget build(BuildContext context) {

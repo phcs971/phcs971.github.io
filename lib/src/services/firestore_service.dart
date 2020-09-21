@@ -30,4 +30,36 @@ class FirestoreService {
     log.v("<Firestore> Got ${conquistas.length} Achievements");
     return conquistas;
   }
+
+  Future createUser(Profile user) async {
+    if (!(await userExists(user.id))) {
+      try {
+        log.v("<Firestore> Creating user ${user.id}");
+        await firestore.collection("users").doc(user.id).set(user.toMap());
+        log.i("<Firestore> Creating user ${user.id} success");
+      } catch (e) {
+        log.e("<Firestore> Creating user ${user.id} failed / ${e.message}");
+        return e.message;
+      }
+    }
+  }
+
+  Future getUser(String uid) async {
+    try {
+      log.v("<Firestore> Requesting user $uid");
+      var userData = await firestore.collection("users").doc(uid).get();
+      assert(userData != null && userData.data() != null && userData.data().isNotEmpty,
+          "USER_NOT_FOUND");
+      log.v("<Firestore> Requesting user $uid success");
+      return Profile.fromMap(userData.data());
+    } catch (e) {
+      log.e("<Firestore> Requesting user $uid failed / ${e.message}");
+      return e.message;
+    }
+  }
+
+  Future<bool> userExists(String uid) async {
+    var userData = await firestore.collection("users").doc(uid).get();
+    return userData != null && userData.data() != null && userData.data().isNotEmpty;
+  }
 }

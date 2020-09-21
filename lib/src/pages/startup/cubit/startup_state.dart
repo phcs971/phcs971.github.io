@@ -7,4 +7,6 @@ abstract class StartupState extends Equatable {
   List<Object> get props => [];
 }
 
-class StartupInitial extends StartupState {}
+class StartupLoading extends StartupState {}
+
+class StartupWaiting extends StartupState {}

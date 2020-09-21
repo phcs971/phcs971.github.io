@@ -11,6 +11,7 @@ class GalleryWidget extends StatelessWidget {
     return Container(
       width: 400,
       height: 500,
+      margin: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: kElevationToShadow[4],

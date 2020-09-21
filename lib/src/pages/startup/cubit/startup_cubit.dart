@@ -8,16 +8,25 @@ import '../../../locators.dart';
 part 'startup_state.dart';
 
 class StartupCubit extends Cubit<StartupState> {
-  StartupCubit() : super(StartupInitial()) {
+  StartupCubit() : super(StartupLoading()) {
     _startup();
   }
 
   final nav = locator<NavigationService>();
+  final auth = locator<AuthService>();
 
   void _startup() async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (kIsWeb) return nav.to(InfoRoute);
-      //TODO Em Caso de Ser o App Mobile Verificar Se Existe Usuário do Google e Logar se Necessario
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (kIsWeb) return nav.to(HomeRoute);
+      if (await auth.hasUser()) return nav.to(HomeRoute);
+      login();
     });
+  }
+
+  void login() async {
+    if (state is StartupWaiting) emit(StartupLoading());
+    final res = await auth.login();
+    if (res is bool && res) return nav.to(HomeRoute);
+    emit(StartupWaiting());
   }
 }

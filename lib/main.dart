@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -12,9 +13,11 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  if (!kIsWeb) SystemChrome.setEnabledSystemUIOverlays([]);
+
   try {
     await Firebase.initializeApp(
-      name: 'portifolio',
+      name: 'Portifólio',
       options: FirebaseOptions(
         apiKey: "AIzaSyDgwEVl6_gD2LnZe6h1oB6djfraGI_LYdQ",
         authDomain: "portifolio-phcs971.firebaseapp.com",

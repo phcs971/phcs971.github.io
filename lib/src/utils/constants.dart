@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_icons/flutter_icons.dart';
 
-import 'package:portifolio/src/models/models.dart';
-
+import '../models/models.dart';
 import 'icons/ExtraTech/extra_tech_icons_icons.dart';
+
+const version = "0.2.0";
 
 const primaryColor = Color(0xFF11144D); //    #11144D
 const backgroundColor = Color(0xFFFFFFFF); // #FFFFFF
