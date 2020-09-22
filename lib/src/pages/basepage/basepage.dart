@@ -228,7 +228,10 @@ class BasePage extends StatelessWidget {
                 ),
           floatingActionButton: !kIsWeb && auth.currentUser.admin && [0, 1].contains(index)
               ? FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (index == 0) return nav.push(NewProjectRoute);
+                    if (index == 1) return nav.push(NewConquistaRoute);
+                  },
                   backgroundColor: Theme.of(context).primaryColor,
                   child: Icon(Icons.add),
                 )

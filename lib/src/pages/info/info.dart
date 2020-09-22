@@ -45,7 +45,7 @@ class InfoPage extends StatelessWidget {
         text,
         style: TextStyle(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-          fontSize: 18,
+          fontSize: isBold ? 18 : 16,
         ),
         textAlign: TextAlign.center,
       ),
@@ -217,6 +217,7 @@ Rua Rosa Kaint Nadolny, 225, Ap. 1701, Campo Comprido, 81200-525, Curitiba/PR
                       "Atleta de Futebol Americano – Formado com honras pela Brown Spiders Football School – 2017 e 2018 – 300 horas"),
                   buildSpace(),
                   buildText("Programador, trader, músico e enxadrista no tempo livre"),
+                  SizedBox(height: 30)
                 ],
               ),
             ),

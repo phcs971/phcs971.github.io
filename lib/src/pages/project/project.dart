@@ -34,6 +34,7 @@ class ProjectPage extends StatelessWidget {
                     children: [
                       SizedBox(height: 10),
                       AppBar(
+                        primary: false,
                         centerTitle: true,
                         elevation: 0,
                         backgroundColor: Colors.white,

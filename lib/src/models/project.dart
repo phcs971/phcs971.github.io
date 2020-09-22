@@ -25,25 +25,27 @@ enum Cause { pro, competition, personal, academics }
 class Project {
   final String id;
 
-  final String title;
-  final String description;
+  String title;
+  String description;
 
-  final DateTime start;
-  final DateTime end;
+  DateTime start;
+  DateTime end;
 
-  final Status status;
+  Status status;
 
-  final List<Link> links;
-  final List<GalleryItem> gallery;
+  List<Link> links;
+  List<GalleryItem> gallery;
 
-  final Cause cause;
+  Cause cause;
 
-  final List<ProjectTech> techs;
+  List<ProjectTech> techs;
 
-  final Color mainColor;
-  final Color backgroundColor;
+  Color mainColor;
+  Color backgroundColor;
 
-  final bool isOther;
+  bool isOther;
+
+  Project.create() : id = "project-new";
 
   Project.fromMap(Map<String, dynamic> map)
       : id = map['id'],

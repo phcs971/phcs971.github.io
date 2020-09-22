@@ -13,7 +13,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (!kIsWeb) SystemChrome.setEnabledSystemUIOverlays([]);
+  if (!kIsWeb) SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
   try {
     await Firebase.initializeApp(

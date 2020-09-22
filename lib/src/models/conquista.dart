@@ -1,10 +1,12 @@
 class Conquista {
   final String id;
-  final String title;
-  final String description;
-  final String url;
-  final DateTime date;
-  final bool isOther;
+  String title;
+  String description;
+  String url;
+  DateTime date;
+  bool isOther;
+
+  Conquista.create() : id = 'conquista-nova';
 
   Conquista.fromMap(Map<String, dynamic> map)
       : id = map['id'],

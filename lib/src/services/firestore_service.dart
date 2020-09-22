@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../locators.dart';
 import '../models/models.dart';
 import '../utils/logger.dart';
 
@@ -61,5 +64,19 @@ class FirestoreService {
   Future<bool> userExists(String uid) async {
     var userData = await firestore.collection("users").doc(uid).get();
     return userData != null && userData.data() != null && userData.data().isNotEmpty;
+  }
+
+  void createConquista(Conquista conquista, File file) async {
+    try {
+      log.v("<Firestore> Creating conquista ${conquista.title}");
+      final ref = firestore.collection("achievements").doc();
+      conquista.url = await locator<StorageService>().saveFotoConquista(file, ref.id);
+      final data = conquista.toMap();
+      data.update("id", (_) => ref.id);
+      ref.set(data);
+      log.i("<Firestore> Creating conquista ${conquista.title} success");
+    } catch (e) {
+      log.e("<Firestore> Creating conquista ${conquista.title} failed / ${e.toString()}");
+    }
   }
 }

@@ -7,11 +7,15 @@ import 'pages/info/info.dart';
 import 'pages/conquistas/conquistas.dart';
 import 'pages/project/project.dart';
 import 'pages/startup/startup.dart';
+import 'pages/newproject/newproject.dart';
+import 'pages/newconquista/newconquista.dart';
 
 const StartupRoute = '/';
 const HomeRoute = '/projetos';
 const InfoRoute = '/info';
 const ConquistasRoute = '/conquistas';
+const NewProjectRoute = '/projeto-novo';
+const NewConquistaRoute = '/conquista-novo';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   Route<dynamic> _page(Widget widget) => FadePageRoute(page: widget, settings: settings);
@@ -32,6 +36,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return _page(ConquistasPage());
     case InfoRoute:
       return _page(InfoPage());
+    case NewProjectRoute:
+      return _page(NewProjectPage());
+    case NewConquistaRoute:
+      return _page(NewConquistaPage());
     default:
       log.e("<Router> Unknown Route: $routeName");
       return _page(ErroWidget("404\nPágina Não Encontrada"));

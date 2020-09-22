@@ -9,13 +9,19 @@ class PortfolioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log.v("<App> (Re)Loaded");
-    return MaterialApp(
-      title: longAppName,
-      theme: themeData,
-      initialRoute: StartupRoute,
-      onGenerateRoute: onGenerateRoute,
-      navigatorKey: locator<NavigationService>().navigatorKey,
-      debugShowCheckedModeBanner: false,
+    return GestureDetector(
+      onTap: () {
+        log.v("<App> Reseting Focus");
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: MaterialApp(
+        title: longAppName,
+        theme: themeData,
+        initialRoute: StartupRoute,
+        onGenerateRoute: onGenerateRoute,
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
