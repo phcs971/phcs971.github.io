@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
 
 import '../locators.dart';
@@ -36,4 +37,33 @@ Future dialogConquista(BuildContext context, Conquista conquista) {
       ),
     ),
   );
+}
+
+Future<Color> colorPicker(BuildContext context, Color initialValue) async {
+  Color res = initialValue;
+  await showDialog(
+    context: context,
+    child: AlertDialog(
+      title: Text("Escolha uma Cor"),
+      content: SingleChildScrollView(
+        child: ColorPicker(
+          pickerColor: initialValue,
+          onColorChanged: (v) => res = v,
+          showLabel: true,
+          pickerAreaHeightPercent: 0.8,
+          enableAlpha: true,
+        ),
+      ),
+      actions: [
+        FlatButton(
+            child: Text("Cancel", style: TextStyle(color: Colors.red)),
+            onPressed: () {
+              res = initialValue;
+              locator<NavigationService>().pop();
+            }),
+        FlatButton(child: Text("Ok"), onPressed: locator<NavigationService>().pop),
+      ],
+    ),
+  );
+  return res;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:image_picker/image_picker.dart' show ImageSource;
 
 import '../models/models.dart';
 import 'icons/ExtraTech/extra_tech_icons_icons.dart';
@@ -87,3 +88,5 @@ const kCauseToString = {
   Cause.personal: "Pessoal",
   Cause.pro: "Profissional",
 };
+
+const kImageSourceToString = {ImageSource.camera: "Câmera", ImageSource.gallery: "Galeria"};

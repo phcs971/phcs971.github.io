@@ -79,3 +79,5 @@ class Project {
         'isOther': isOther,
       };
 }
+
+// List<GalleryItem> gallery;

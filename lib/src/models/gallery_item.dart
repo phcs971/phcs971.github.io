@@ -6,6 +6,8 @@ class GalleryItem {
   final String url;
   final GalleryType type;
 
+  GalleryItem.url(this.url) : type = GalleryType.image;
+
   GalleryItem.fromMap(Map<String, dynamic> map)
       : url = map['url'],
         type = GalleryType.values[map['type']];

@@ -43,7 +43,6 @@ void main() async {
 }
 
 //TODOZAO
-//21 Seg ->
 //22 Ter -> Criar Função P/ Adcionar
 //23 Qua -> Popular Projetos
 //24 Qui -> Popular Projetos

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 
+import '../models/models.dart';
 import '../utils/utils.dart';
 
 class StorageService {
@@ -16,15 +17,18 @@ class StorageService {
     return await ref.getDownloadURL();
   }
 
-  Future<List<String>> saveFotosProjetos(List<File> files, String id) async {
-    log.i("<Storage> Saving fotos Projeto $id");
+  Future<List<GalleryItem>> saveFotosProjetos(List<File> files, String id) async {
+    log.v("<Storage> Saving ${files.length} fotos Projeto $id");
     final strref = storage.ref().child("projects/$id");
-    List<String> urls = [];
+    List<GalleryItem> urls = [];
+    int i = 1;
     for (var file in files) {
+      log.v("<Storage> Saving photos $i from Projeto $id");
+      i++;
       final ref = strref.child(file.path.split("/").last);
       final task = ref.putFile(file);
       await task.onComplete;
-      urls.add(await ref.getDownloadURL());
+      urls.add(GalleryItem.url(await ref.getDownloadURL() as String));
     }
     log.i("<Storage> Saving fotos Projeto $id Success");
     return urls;

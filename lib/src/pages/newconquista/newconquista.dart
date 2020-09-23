@@ -1,14 +1,32 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:portifolio/src/components/components.dart';
 
 import '../../locators.dart';
 import '../../models/models.dart';
 import '../basepage/basepage.dart';
 
 class NewConquistaPage extends StatelessWidget {
+  Future<PickedFile> cropImage(String path, BuildContext context) async {
+    final result = await ImageCropper.cropImage(
+      sourcePath: path,
+      aspectRatio: CropAspectRatio(ratioX: 3, ratioY: 2),
+      androidUiSettings: AndroidUiSettings(
+        toolbarTitle: "Editar Imagem",
+        toolbarColor: Colors.white,
+        toolbarWidgetColor: Theme.of(context).primaryColor,
+        statusBarColor: Colors.white,
+        activeControlsWidgetColor: Colors.white,
+      ),
+    );
+    return PickedFile(result.path);
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -16,11 +34,11 @@ class NewConquistaPage extends StatelessWidget {
     final nav = locator<NavigationService>();
     PickedFile image;
 
-    void save() {
+    void save() async {
       final form = formKey.currentState;
       if (form.validate()) {
         form.save();
-        locator<FirestoreService>().createConquista(conq, File(image.path));
+        await locator<FirestoreService>().createConquista(conq, File(image.path));
         nav.pop();
       }
     }
@@ -99,60 +117,52 @@ class NewConquistaPage extends StatelessWidget {
                       //Data
                       Flexible(
                         flex: 4,
-                        child: FormField<DateTime>(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (v) {
-                            if (v == null) return "Adicione a data";
-                            return null;
-                          },
-                          onSaved: (v) => conq.date = v,
-                          initialValue: DateTime.now(),
-                          builder: (field) {
-                            return ListTile(
-                              onTap: () {
-                                showDatePicker(
-                                  context: context,
-                                  initialDate: field.value,
-                                  firstDate: DateTime(2001, 07, 09),
-                                  lastDate: DateTime.now().add(Duration(days: 365)),
-                                  initialDatePickerMode: DatePickerMode.year,
-                                ).then((v) {
-                                  if (v is DateTime) field.didChange(v);
-                                });
-                              },
-                              title: Text(
-                                DateFormat("MM/yyyy").format(field.value),
-                              ),
-                              trailing: Icon(
-                                Icons.calendar_today,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            );
-                          },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4.0),
+                            border: Border.all(color: Theme.of(context).primaryColor),
+                          ),
+                          child: FormField<DateTime>(
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            validator: (v) {
+                              if (v == null) return "Adicione a data";
+                              return null;
+                            },
+                            onSaved: (v) => conq.date = v,
+                            initialValue: DateTime.now(),
+                            builder: (field) {
+                              return ListTile(
+                                onTap: () {
+                                  showDatePicker(
+                                    context: context,
+                                    initialDate: field.value,
+                                    firstDate: DateTime(2001, 07, 09),
+                                    lastDate: DateTime.now().add(Duration(days: 365)),
+                                    initialDatePickerMode: DatePickerMode.year,
+                                  ).then((v) {
+                                    if (v is DateTime) field.didChange(v);
+                                  });
+                                },
+                                title: Text(
+                                  DateFormat("MM/yyyy").format(field.value),
+                                ),
+                                trailing: Icon(
+                                  Icons.calendar_today,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(width: 10),
                       //Is Other
                       Flexible(
                         flex: 5,
-                        child: FormField<bool>(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (v) {
-                            if (v == null) return "Escolha a opção";
-                            return null;
-                          },
-                          onSaved: (v) => conq.isOther = !v,
-                          initialValue: true,
-                          builder: (field) {
-                            return ListTile(
-                              title: Text("Principal: "),
-                              trailing: Switch(
-                                onChanged: field.didChange,
-                                value: field.value,
-                              ),
-                            );
-                          },
-                        ),
+                        child: SwitchFormField(
+                            onSaved: (v) => conq.isOther = !v,
+                            initialValue: true,
+                            title: "Principal"),
                       ),
                     ],
                   ),
@@ -168,39 +178,51 @@ class NewConquistaPage extends StatelessWidget {
                     onSaved: (v) => image = v,
                     builder: (field) {
                       final picker = ImagePicker();
-                      return Column(
-                        children: [
-                          ListTile(
-                            leading: IconButton(
-                              icon: Icon(
-                                Icons.camera_alt,
-                                color: Theme.of(context).primaryColor,
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          border: Border.all(color: Theme.of(context).primaryColor),
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: IconButton(
+                                icon: Icon(
+                                  Icons.camera_alt,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                onPressed: () async {
+                                  PickedFile image =
+                                      await picker.getImage(source: ImageSource.camera);
+                                  if (image != null) {
+                                    image = await cropImage(image.path, context);
+                                    if (image != null) field.didChange(image);
+                                  }
+                                },
                               ),
-                              onPressed: () async {
-                                PickedFile image =
-                                    await picker.getImage(source: ImageSource.camera);
-                                if (image != null) field.didChange(image);
-                              },
-                            ),
-                            trailing: IconButton(
-                              icon: Icon(
-                                Icons.photo_library,
-                                color: Theme.of(context).primaryColor,
+                              trailing: IconButton(
+                                icon: Icon(
+                                  Icons.photo_library,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                onPressed: () async {
+                                  PickedFile image =
+                                      await picker.getImage(source: ImageSource.gallery);
+                                  if (image != null) {
+                                    image = await cropImage(image.path, context);
+                                    if (image != null) field.didChange(image);
+                                  }
+                                },
                               ),
-                              onPressed: () async {
-                                PickedFile image =
-                                    await picker.getImage(source: ImageSource.gallery);
-                                if (image != null) field.didChange(image);
-                              },
+                              title: Center(child: Text("Foto")),
                             ),
-                            title: Center(child: Text("Foto")),
-                          ),
-                          if (field.value != null)
-                            AspectRatio(
-                              aspectRatio: 3 / 2,
-                              child: Image.file(File(field.value.path)),
-                            ),
-                        ],
+                            if (field.value != null)
+                              AspectRatio(
+                                aspectRatio: 3 / 2,
+                                child: Image.file(File(field.value.path)),
+                              ),
+                          ],
+                        ),
                       );
                     },
                   )

@@ -56,13 +56,19 @@ class ProjectPage extends StatelessWidget {
                       if (fullScreen)
                         Row(children: [
                           SizedBox(width: 10),
-                          GalleryWidget(state.project.gallery),
+                          GalleryWidget(
+                            state.project.gallery,
+                            backgroundColor: state.project.backgroundColor,
+                          ),
                           SizedBox(width: 10),
                           Expanded(child: ProjectText(state.project)),
                           SizedBox(width: 10),
                         ]),
                       if (!fullScreen) ...[
-                        GalleryWidget(state.project.gallery),
+                        GalleryWidget(
+                          state.project.gallery,
+                          backgroundColor: state.project.backgroundColor,
+                        ),
                         Padding(
                           child: ProjectText(state.project),
                           padding: EdgeInsets.fromLTRB(10, 10, 10, 0),

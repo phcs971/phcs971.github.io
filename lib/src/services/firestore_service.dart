@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart' show PickedFile;
 
 import '../locators.dart';
 import '../models/models.dart';
@@ -66,7 +67,7 @@ class FirestoreService {
     return userData != null && userData.data() != null && userData.data().isNotEmpty;
   }
 
-  void createConquista(Conquista conquista, File file) async {
+  Future createConquista(Conquista conquista, File file) async {
     try {
       log.v("<Firestore> Creating conquista ${conquista.title}");
       final ref = firestore.collection("achievements").doc();
@@ -77,6 +78,23 @@ class FirestoreService {
       log.i("<Firestore> Creating conquista ${conquista.title} success");
     } catch (e) {
       log.e("<Firestore> Creating conquista ${conquista.title} failed / ${e.toString()}");
+    }
+  }
+
+  Future createProjeto(Project projeto, List<PickedFile> gallery) async {
+    try {
+      log.v("<Firestore> Creating projeto ${projeto.title}");
+      final ref = firestore.collection("projects").doc();
+      projeto.gallery = await locator<StorageService>().saveFotosProjetos(
+        gallery.map((f) => File(f.path)).toList(),
+        ref.id,
+      );
+      final data = projeto.toMap();
+      data.update("id", (_) => ref.id);
+      ref.set(data);
+      log.i("<Firestore> Creating projeto ${projeto.title} success");
+    } catch (e) {
+      log.e("<Firestore> Creating projeto ${projeto.title} failed / ${e.toString()}");
     }
   }
 }
