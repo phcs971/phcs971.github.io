@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 import '../../locators.dart';
 import '../../models/models.dart';
@@ -18,7 +19,7 @@ class NewProjectPage extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     final project = Project.create();
     final nav = locator<NavigationService>();
-    List<PickedFile> gallery = [];
+    List<File> gallery = [];
     void save() async {
       final form = formKey.currentState;
       if (form.validate()) {
@@ -409,7 +410,7 @@ class NewProjectPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   //Galeria
-                  FormField<List<PickedFile>>(
+                  FormField<List<File>>(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     initialValue: gallery,
                     validator: (v) {
@@ -431,7 +432,19 @@ class NewProjectPage extends StatelessWidget {
                                 onSelected: (v) async {
                                   final picker = ImagePicker();
                                   final img = await picker.getImage(source: v);
-                                  if (img != null) field.didChange([...field.value, img]);
+                                  if (img != null) {
+                                    final image = await ImageCropper.cropImage(
+                                      sourcePath: img.path,
+                                      androidUiSettings: AndroidUiSettings(
+                                        toolbarTitle: "Editar Imagem",
+                                        toolbarColor: Colors.white,
+                                        toolbarWidgetColor: Theme.of(context).primaryColor,
+                                        statusBarColor: Colors.white,
+                                        activeControlsWidgetColor: Colors.white,
+                                      ),
+                                    );
+                                    if (image != null) field.didChange([...field.value, image]);
+                                  }
                                 },
                                 icon: Icon(Icons.add, color: Theme.of(context).primaryColor),
                                 itemBuilder: (context) => ImageSource.values

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../components/components.dart';
 import '../basepage/basepage.dart';
@@ -46,7 +47,26 @@ class _HomePageState extends State<HomePage> {
           if (state is HomeInitial) {
             children = [LoadingSliver()];
           } else if (state is HomeLoaded) {
+            final main = state.projects.where((p) => !p.isOther).toList();
+            final others = state.projects.where((p) => p.isOther).toList();
             children = [
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                sliver: SliverAppBar(
+                  primary: false,
+                  title: Text(
+                    "Projetos Principais",
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
+                  backgroundColor: Colors.white,
+                  actions: [
+                    IconButton(
+                      icon: Icon(Feather.refresh_cw, color: Theme.of(context).primaryColor),
+                      onPressed: context.bloc<HomeCubit>().load,
+                    )
+                  ],
+                ),
+              ),
               SliverPadding(
                 padding: const EdgeInsets.all(10),
                 sliver: SliverGrid.extent(
@@ -54,9 +74,38 @@ class _HomePageState extends State<HomePage> {
                   childAspectRatio: 2 / 3,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  children: state.projects.map((p) => ProjectItem(p, tick)).toList(),
+                  children: main.map((p) => ProjectItem(p, tick)).toList(),
                 ),
               ),
+              if (others.isNotEmpty) ...[
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  sliver: SliverAppBar(
+                    primary: false,
+                    title: Text(
+                      "Outros Projetos",
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                    backgroundColor: Colors.white,
+                    actions: [
+                      IconButton(
+                        icon: Icon(Feather.refresh_cw, color: Theme.of(context).primaryColor),
+                        onPressed: context.bloc<HomeCubit>().load,
+                      )
+                    ],
+                  ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.all(10),
+                  sliver: SliverGrid.extent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 2 / 3,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    children: others.map((p) => ProjectItem(p, tick)).toList(),
+                  ),
+                ),
+              ]
             ];
           } else if (state is HomeError) {
             children = [ErrorSliver(state.message)];

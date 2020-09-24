@@ -10,7 +10,7 @@ class GalleryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
+      width: 500,
       height: 500,
       margin: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(

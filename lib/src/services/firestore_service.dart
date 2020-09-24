@@ -81,14 +81,11 @@ class FirestoreService {
     }
   }
 
-  Future createProjeto(Project projeto, List<PickedFile> gallery) async {
+  Future createProjeto(Project projeto, List<File> gallery) async {
     try {
       log.v("<Firestore> Creating projeto ${projeto.title}");
       final ref = firestore.collection("projects").doc();
-      projeto.gallery = await locator<StorageService>().saveFotosProjetos(
-        gallery.map((f) => File(f.path)).toList(),
-        ref.id,
-      );
+      projeto.gallery = await locator<StorageService>().saveFotosProjetos(gallery, ref.id);
       final data = projeto.toMap();
       data.update("id", (_) => ref.id);
       ref.set(data);
