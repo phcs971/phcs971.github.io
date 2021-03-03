@@ -125,7 +125,8 @@ Rua Rosa Kaint Nadolny, 225, Ap. 1701, Campo Comprido, 81200-525, Curitiba/PR
                   ////
                   buildTitle("Áreas de Atuação", context),
                   buildText("Engenharia Mecatrônica e Automação"),
-                  buildText("Programação Python e Flutter"),
+                  buildText("Programação Python"),
+                  buildText("Desenvolvimento de Aplicativos (Flutter e Swift)"),
                   ////
                   buildTitle("Formação Acadêmica", context),
                   buildText(
@@ -133,6 +134,11 @@ Rua Rosa Kaint Nadolny, 225, Ap. 1701, Campo Comprido, 81200-525, Curitiba/PR
                     true,
                   ),
                   buildList(["IRA Atual - 9,495"]),
+                  buildSpace(),
+                  buildText(
+                    "Curso Apple Developer Academy - PUC-PR (Curitiba) - Início em 2021",
+                    true,
+                  ),
                   buildSpace(),
                   buildText("Dupla Diplomação de Ensino Médio", true),
                   buildList([
@@ -163,6 +169,13 @@ Rua Rosa Kaint Nadolny, 225, Ap. 1701, Campo Comprido, 81200-525, Curitiba/PR
                   buildList([
                     "Desenvolvimento de Aplicação Mobile Multiplataforma (Flutter)",
                     "Teste de Funcionalidades e Widgets",
+                  ]),
+                  buildSpace(),
+                  buildText("Podi – Desenvolvedor Júnior Mobile | Desde Setembro de 2020", true),
+                  buildList([
+                    "Desenvolvimento de Aplicação Mobile Multiplataforma (Flutter)",
+                    "Manutenção de aplicativo mobile",
+                    "Metodologias Ageis e Git",
                   ]),
                   ////
                   buildTitle("Qualificações e Conquistas", context),
@@ -197,12 +210,14 @@ Rua Rosa Kaint Nadolny, 225, Ap. 1701, Campo Comprido, 81200-525, Curitiba/PR
                     "Python 3 Tutorial Course – SoloLearn.com – Jan/2019",
                     "C++ Tutorial Course – SoloLearn.com – Jan/2019",
                     "Learn Flutter & Dart to Build iOS & Android Apps – Udemy – 2019/2020",
-                    "Semana OmniStack 11.0 – RocketSeat – Mar, 2020",
+                    "Semana OmniStack 11.0 – RocketSeat – Mar/2020",
+                    "Swift 4 Tutorial Course – SoloLearn.com – Fev/2021",
                   ]),
                   buildSpace(),
                   buildText("Experiências", true),
                   buildList([
                     "Uso pessoal e escolar com conhecimentos intermediários de Pacote Office, Camtasia Studio 8 e paint.net",
+                    "Uso acadêmico de Python, C++, Swift, XCode e Visual Studio",
                     "Uso profissional de Python, Github, VS Code, Firebase e Linux",
                     "Desenvolvimento de aplicativos multiplataformas via Flutter",
                     "Experiência com Business Logic of Component",

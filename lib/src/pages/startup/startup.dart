@@ -33,7 +33,7 @@ class StartupPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 35, bottom: 25),
                       child: RaisedButton(
-                        onPressed: () => context.bloc<StartupCubit>().login(),
+                        onPressed: () => context.read<StartupCubit>().login(),
                         color: Theme.of(context).primaryColor,
                         child: Container(
                           height: 50,

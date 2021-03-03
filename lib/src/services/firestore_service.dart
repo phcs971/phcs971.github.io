@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart' show PickedFile;
 
 import '../locators.dart';
 import '../models/models.dart';

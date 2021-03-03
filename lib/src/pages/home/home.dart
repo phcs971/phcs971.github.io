@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                   actions: [
                     IconButton(
                       icon: Icon(Feather.refresh_cw, color: Theme.of(context).primaryColor),
-                      onPressed: context.bloc<HomeCubit>().load,
+                      onPressed: context.read<HomeCubit>().load,
                     )
                   ],
                 ),
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                     actions: [
                       IconButton(
                         icon: Icon(Feather.refresh_cw, color: Theme.of(context).primaryColor),
-                        onPressed: context.bloc<HomeCubit>().load,
+                        onPressed: context.read<HomeCubit>().load,
                       )
                     ],
                   ),

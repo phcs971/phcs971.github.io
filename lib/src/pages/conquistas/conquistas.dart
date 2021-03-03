@@ -36,7 +36,7 @@ class ConquistasPage extends StatelessWidget {
                   actions: [
                     IconButton(
                       icon: Icon(Feather.refresh_cw, color: Theme.of(context).primaryColor),
-                      onPressed: context.bloc<ConquistasCubit>().load,
+                      onPressed: context.read<ConquistasCubit>().load,
                     )
                   ],
                 ),
@@ -64,7 +64,7 @@ class ConquistasPage extends StatelessWidget {
                     actions: [
                       IconButton(
                         icon: Icon(Feather.refresh_cw, color: Theme.of(context).primaryColor),
-                        onPressed: context.bloc<ConquistasCubit>().load,
+                        onPressed: context.read<ConquistasCubit>().load,
                       )
                     ],
                   ),
