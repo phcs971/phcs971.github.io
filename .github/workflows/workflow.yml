@@ -9,8 +9,6 @@ jobs:
         with:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
-        with:
-          channel: 'beta'
       - name: Upgrades flutter
         run: flutter upgrade
       - name: Enable Web
