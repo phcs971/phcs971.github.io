@@ -16,7 +16,7 @@ class CustomPrinter extends LogPrinter {
       Level.warning: AnsiColor.fg(3),
       Level.error: AnsiColor.fg(196),
       Level.wtf: AnsiColor.fg(199),
-    }[event.level];
+    }[event.level]!;
     var prefix = {
       Level.verbose: "[VERB]",
       Level.debug: "[DEBG]",

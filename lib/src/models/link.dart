@@ -2,7 +2,7 @@ enum LinkType { github, link, linkedin, facebook, instagram, twitter, email, wha
 
 class Link {
   final LinkType type;
-  String url;
+  String? url;
 
   Link(this.url, this.type);
 

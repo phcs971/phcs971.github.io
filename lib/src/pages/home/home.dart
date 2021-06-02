@@ -11,7 +11,7 @@ import 'components/project_item.dart';
 import 'cubit/home_cubit.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -19,14 +19,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int tick = 0;
-  Timer timer;
+  Timer? timer;
   final k = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     timer = Timer.periodic(Duration(seconds: 2), (timer) {
-      if (k?.currentState == null || k.currentState.isEndDrawerOpen) return;
+      if (k.currentState == null || k.currentState!.isEndDrawerOpen) return;
       setState(() => tick++);
     });
   }
@@ -43,12 +43,12 @@ class _HomePageState extends State<HomePage> {
       create: (context) => HomeCubit(),
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          List<Widget> children;
+          List<Widget>? children;
           if (state is HomeInitial) {
             children = [LoadingSliver()];
           } else if (state is HomeLoaded) {
-            final main = state.projects.where((p) => !p.isOther).toList();
-            final others = state.projects.where((p) => p.isOther).toList();
+            final main = state.projects.where((p) => !p.isOther!).toList();
+            final others = state.projects.where((p) => p.isOther!).toList();
             children = [
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),

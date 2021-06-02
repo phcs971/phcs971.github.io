@@ -19,12 +19,12 @@ class NewProjectPage extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     final project = Project.create();
     final nav = locator<NavigationService>();
-    List<File> gallery = [];
+    List<File>? gallery = [];
     void save() async {
-      final form = formKey.currentState;
+      final form = formKey.currentState!;
       if (form.validate()) {
         form.save();
-        await locator<FirestoreService>().createProjeto(project, gallery);
+        await locator<FirestoreService>().createProjeto(project, gallery!);
         nav.pop();
       }
     }
@@ -102,14 +102,14 @@ class NewProjectPage extends StatelessWidget {
                     initialValue: {"status": null, "start": null, "end": null},
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onSaved: (map) {
-                      project.status = map['status'];
+                      project.status = map!['status'];
                       project.start = map['start'];
                       project.end = map['end'];
                     },
                     validator: (map) {
-                      Status status = map['status'];
-                      DateTime start = map['start'];
-                      DateTime end = map['end'];
+                      Status? status = map!['status'];
+                      DateTime? start = map['start'];
+                      DateTime? end = map['end'];
                       switch (status) {
                         case Status.tostart:
                           return null;
@@ -128,9 +128,9 @@ class NewProjectPage extends StatelessWidget {
                       }
                     },
                     builder: (field) {
-                      Status status = field.value['status'];
-                      DateTime start = field.value['start'];
-                      DateTime end = field.value['end'];
+                      Status? status = field.value!['status'];
+                      DateTime? start = field.value!['start'];
+                      DateTime? end = field.value!['end'];
                       return Column(
                         children: [
                           DropdownButtonFormField<Status>(
@@ -138,7 +138,7 @@ class NewProjectPage extends StatelessWidget {
                             items: Status.values
                                 .map((st) => DropdownMenuItem<Status>(
                                       value: st,
-                                      child: Text(kStatusToString[st]),
+                                      child: Text(kStatusToString[st]!),
                                     ))
                                 .toList(),
                             onChanged: (v) =>
@@ -150,8 +150,8 @@ class NewProjectPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          if (field.value['status'] != null &&
-                              field.value['status'] != Status.tostart)
+                          if (field.value!['status'] != null &&
+                              field.value!['status'] != Status.tostart)
                             Padding(
                               padding: const EdgeInsets.only(top: 10.0),
                               child: Row(
@@ -186,7 +186,7 @@ class NewProjectPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  if (field.value['status'] == Status.closed) ...[
+                                  if (field.value!['status'] == Status.closed) ...[
                                     SizedBox(width: 10),
                                     Expanded(
                                       child: Container(
@@ -253,7 +253,7 @@ class NewProjectPage extends StatelessWidget {
                   SizedBox(height: 10),
                   //isOther
                   SwitchFormField(
-                    onSaved: (v) => project.isOther = !v,
+                    onSaved: (v) => project.isOther = !(v ?? true),
                     initialValue: true,
                     title: "Principal",
                   ),
@@ -277,7 +277,7 @@ class NewProjectPage extends StatelessWidget {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     initialValue: [],
                     validator: (v) {
-                      if (v.isEmpty) return "Adicione as Tecnologias";
+                      if (v!.isEmpty) return "Adicione as Tecnologias";
                       return null;
                     },
                     onSaved: (v) => project.techs = v,
@@ -292,39 +292,39 @@ class NewProjectPage extends StatelessWidget {
                             ListTile(
                               title: Text("Tecnologias"),
                               trailing: PopupMenuButton<ProjectTech>(
-                                onSelected: (v) => field.didChange([...field.value, v]),
+                                onSelected: (v) => field.didChange([...field.value!, v]),
                                 icon: Icon(Icons.add, color: Theme.of(context).primaryColor),
                                 itemBuilder: (context) => ProjectTech.values
-                                    .where((tech) => !field.value.contains(tech))
+                                    .where((tech) => !field.value!.contains(tech))
                                     .map((tech) => PopupMenuItem<ProjectTech>(
-                                          child: Text(kTechToString[tech]),
+                                          child: Text(kTechToString[tech]!),
                                           value: tech,
                                         ))
                                     .toList(),
                               ),
                             ),
-                            if (field.value.length != 0)
+                            if (field.value!.length != 0)
                               Container(
                                 height: 48,
                                 width: double.infinity,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: field.value.length,
+                                  itemCount: field.value!.length,
                                   padding: EdgeInsets.fromLTRB(12, 0, 0, 12),
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.only(right: 12.0),
                                       child: GestureDetector(
                                         onLongPress: () {
-                                          field.didChange(field.value
-                                              .where((tech) => field.value.indexOf(tech) != index)
+                                          field.didChange(field.value!
+                                              .where((tech) => field.value!.indexOf(tech) != index)
                                               .toList());
                                         },
                                         child: CircleAvatar(
                                           radius: 18,
                                           backgroundColor: Theme.of(context).primaryColor,
                                           child: Icon(
-                                            kTechToIcon[field.value[index]],
+                                            kTechToIcon[field.value![index]],
                                             color: Colors.white,
                                           ),
                                         ),
@@ -344,8 +344,7 @@ class NewProjectPage extends StatelessWidget {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     initialValue: [],
                     validator: (v) {
-                      if (!v.every((l) => l.url != null && l.type != null))
-                        return "Arrume os Links";
+                      if (!v!.every((l) => l.url != null)) return "Arrume os Links";
                       return null;
                     },
                     onSaved: (v) => project.links = v,
@@ -361,18 +360,18 @@ class NewProjectPage extends StatelessWidget {
                               title: Text("Links"),
                               trailing: PopupMenuButton<LinkType>(
                                 onSelected: (v) =>
-                                    field.didChange([...field.value, Link.create(v)]),
+                                    field.didChange([...field.value!, Link.create(v)]),
                                 icon: Icon(Icons.add, color: Theme.of(context).primaryColor),
                                 itemBuilder: (context) => LinkType.values
                                     .map((link) => PopupMenuItem<LinkType>(
-                                          child: Text(kLinkToString[link]),
+                                          child: Text(kLinkToString[link]!),
                                           value: link,
                                         ))
                                     .toList(),
                               ),
                             ),
-                            if (field.value.length != 0)
-                              ...field.value.map(
+                            if (field.value!.length != 0)
+                              ...field.value!.map(
                                 (link) => Padding(
                                   padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 12.0),
                                   child: TextFormField(
@@ -383,7 +382,7 @@ class NewProjectPage extends StatelessWidget {
                                       return null;
                                     },
                                     onChanged: (v) {
-                                      final links = field.value;
+                                      final links = field.value!;
                                       links[links.indexOf(link)] = Link(v, link.type);
                                       field.didChange(links);
                                     },
@@ -394,7 +393,7 @@ class NewProjectPage extends StatelessWidget {
                                       suffix: GestureDetector(
                                         child: Icon(Icons.cancel, color: Colors.red),
                                         onTap: () {
-                                          final links = field.value;
+                                          final links = field.value!;
                                           links.remove(link);
                                           field.didChange(links);
                                         },
@@ -414,7 +413,7 @@ class NewProjectPage extends StatelessWidget {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     initialValue: gallery,
                     validator: (v) {
-                      if (!v.every((i) => i?.path != null)) return "Arrume os Items";
+                      if (!v!.every((i) => i.path != "")) return "Arrume os Items";
                       return null;
                     },
                     onSaved: (v) => gallery = v,
@@ -443,36 +442,36 @@ class NewProjectPage extends StatelessWidget {
                                         activeControlsWidgetColor: Colors.white,
                                       ),
                                     );
-                                    if (image != null) field.didChange([...field.value, image]);
+                                    if (image != null) field.didChange([...field.value!, image]);
                                   }
                                 },
                                 icon: Icon(Icons.add, color: Theme.of(context).primaryColor),
                                 itemBuilder: (context) => ImageSource.values
                                     .map((source) => PopupMenuItem<ImageSource>(
-                                          child: Text(kImageSourceToString[source]),
+                                          child: Text(kImageSourceToString[source]!),
                                           value: source,
                                         ))
                                     .toList(),
                               ),
                             ),
-                            if (field.value.length != 0)
+                            if (field.value!.length != 0)
                               Container(
                                 height: 100,
                                 width: double.infinity,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: field.value.length,
+                                  itemCount: field.value!.length,
                                   padding: EdgeInsets.fromLTRB(12, 0, 0, 12),
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.only(right: 12.0),
                                       child: GestureDetector(
                                         onLongPress: () {
-                                          field.didChange(field.value
-                                              .where((item) => field.value.indexOf(item) != index)
+                                          field.didChange(field.value!
+                                              .where((item) => field.value!.indexOf(item) != index)
                                               .toList());
                                         },
-                                        child: Image.file(File(field.value[index].path)),
+                                        child: Image.file(File(field.value![index].path)),
                                       ),
                                     );
                                   },

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 
 import '../../../models/models.dart';
 import '../../../utils/utils.dart';
@@ -12,17 +13,17 @@ class ConquistasCubit extends Cubit<ConquistasState> {
     load();
   }
 
-  final firestore = locator<FirestoreService>();
+  final FirestoreService? firestore = locator<FirestoreService>();
 
   void load() async {
     try {
       emit(ConquistasInitial());
-      final conq = await firestore.getConquistas();
+      final conq = await firestore!.getConquistas();
       emit(ConquistasLoaded(conq));
     } catch (e) {
-      String m;
+      String? m;
       try {
-        m = e.message;
+        m = (e as PlatformException).message;
       } catch (_) {
         m = e.toString();
       }

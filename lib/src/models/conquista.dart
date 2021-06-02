@@ -1,10 +1,10 @@
 class Conquista {
-  final String id;
-  String title;
-  String description;
-  String url;
-  DateTime date;
-  bool isOther;
+  final String? id;
+  String? title;
+  String? description;
+  String? url;
+  DateTime? date;
+  bool? isOther;
 
   Conquista.create() : id = 'conquista-nova';
 
@@ -22,6 +22,6 @@ class Conquista {
         'description': description,
         'url': url,
         'isOther': isOther,
-        'date': date.millisecondsSinceEpoch,
+        'date': date!.millisecondsSinceEpoch,
       };
 }

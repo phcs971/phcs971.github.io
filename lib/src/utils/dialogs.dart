@@ -10,10 +10,10 @@ void _pop([dynamic result]) => locator<NavigationService>().pop(result);
 Future cannotLaunchUrl(BuildContext context) {
   return showDialog(
     context: context,
-    child: AlertDialog(
+    builder: (_) => AlertDialog(
       title: Text("Não Foi Possível Abrir o Link"),
       content: Text("Tente novamente! Se o erro persistir entre em contato: phcs.971@gmail.com"),
-      actions: [FlatButton(child: Text('Ok'), onPressed: _pop)],
+      actions: [TextButton(child: Text('Ok'), onPressed: _pop)],
     ),
   );
 }
@@ -21,15 +21,15 @@ Future cannotLaunchUrl(BuildContext context) {
 Future dialogConquista(BuildContext context, Conquista conquista) {
   return showDialog(
     context: context,
-    child: GestureDetector(
+    builder: (_) => GestureDetector(
       onTap: _pop,
       child: AlertDialog(
-        title: Center(child: Text(conquista.title)),
-        content: Image.network(conquista.url),
+        title: Center(child: Text(conquista.title!)),
+        content: Image.network(conquista.url!),
         actions: [
           Center(
             child: Text(
-              "${conquista.description} (${DateFormat("MM/yyyy").format(conquista.date)})",
+              "${conquista.description} (${DateFormat("MM/yyyy").format(conquista.date!)})",
               textAlign: TextAlign.center,
             ),
           )
@@ -39,15 +39,15 @@ Future dialogConquista(BuildContext context, Conquista conquista) {
   );
 }
 
-Future<Color> colorPicker(BuildContext context, Color initialValue) async {
-  Color res = initialValue;
+Future<Color?> colorPicker(BuildContext context, Color? initialValue) async {
+  Color? res = initialValue;
   await showDialog(
     context: context,
-    child: AlertDialog(
+    builder: (_) => AlertDialog(
       title: Text("Escolha uma Cor"),
       content: SingleChildScrollView(
         child: ColorPicker(
-          pickerColor: initialValue,
+          pickerColor: initialValue!,
           onColorChanged: (v) => res = v,
           showLabel: true,
           pickerAreaHeightPercent: 0.8,
@@ -55,13 +55,13 @@ Future<Color> colorPicker(BuildContext context, Color initialValue) async {
         ),
       ),
       actions: [
-        FlatButton(
+        TextButton(
             child: Text("Cancel", style: TextStyle(color: Colors.red)),
             onPressed: () {
               res = initialValue;
               locator<NavigationService>().pop();
             }),
-        FlatButton(child: Text("Ok"), onPressed: locator<NavigationService>().pop),
+        TextButton(child: Text("Ok"), onPressed: locator<NavigationService>().pop),
       ],
     ),
   );

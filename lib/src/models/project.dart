@@ -23,27 +23,27 @@ enum Status { tostart, wip, paused, closed }
 enum Cause { pro, competition, personal, academics }
 
 class Project {
-  final String id;
+  final String? id;
 
-  String title;
-  String description;
+  String? title;
+  String? description;
 
-  DateTime start;
-  DateTime end;
+  DateTime? start;
+  DateTime? end;
 
-  Status status;
+  Status? status;
 
-  List<Link> links;
-  List<GalleryItem> gallery;
+  List<Link>? links;
+  List<GalleryItem>? gallery;
 
-  Cause cause;
+  Cause? cause;
 
-  List<ProjectTech> techs;
+  List<ProjectTech>? techs;
 
-  Color mainColor;
-  Color backgroundColor;
+  Color? mainColor;
+  Color? backgroundColor;
 
-  bool isOther;
+  bool? isOther;
 
   Project.create() : id = "project-new";
 
@@ -54,9 +54,9 @@ class Project {
         start = map['start'] != null ? DateTime.fromMillisecondsSinceEpoch(map['start']) : null,
         end = map['end'] != null ? DateTime.fromMillisecondsSinceEpoch(map['end']) : null,
         status = Status.values[map['status']],
-        links = (map['links'] as List)?.map<Link>((l) => Link.fromMap(l))?.toList(),
+        links = (map['links'] as List?)?.map<Link>((l) => Link.fromMap(l)).toList(),
         gallery =
-            (map['gallery'] as List)?.map<GalleryItem>((g) => GalleryItem.fromMap(g))?.toList(),
+            (map['gallery'] as List?)?.map<GalleryItem>((g) => GalleryItem.fromMap(g)).toList(),
         cause = Cause.values[map['cause']],
         techs = (map['techs'] as List).map<ProjectTech>((i) => ProjectTech.values[i]).toList(),
         mainColor = Color(map['mainColor']),
@@ -69,13 +69,13 @@ class Project {
         'description': description,
         'start': start?.millisecondsSinceEpoch,
         'end': end?.millisecondsSinceEpoch,
-        'status': status.index,
-        'links': links?.map((l) => l.toMap())?.toList(),
-        'gallery': gallery?.map((g) => g.toMap())?.toList(),
-        'cause': cause.index,
-        'techs': techs.map((i) => i.index).toList(),
-        'mainColor': mainColor.value,
-        'backgroundColor': backgroundColor.value,
+        'status': status!.index,
+        'links': links?.map((l) => l.toMap()).toList(),
+        'gallery': gallery?.map((g) => g.toMap()).toList(),
+        'cause': cause!.index,
+        'techs': techs!.map((i) => i.index).toList(),
+        'mainColor': mainColor!.value,
+        'backgroundColor': backgroundColor!.value,
         'isOther': isOther,
       };
 }

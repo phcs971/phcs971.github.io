@@ -24,7 +24,7 @@ class NewConquistaPage extends StatelessWidget {
         activeControlsWidgetColor: Colors.white,
       ),
     );
-    return PickedFile(result.path);
+    return PickedFile(result!.path);
   }
 
   @override
@@ -32,13 +32,13 @@ class NewConquistaPage extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     final conq = Conquista.create();
     final nav = locator<NavigationService>();
-    PickedFile image;
+    PickedFile? image;
 
     void save() async {
-      final form = formKey.currentState;
+      final form = formKey.currentState!;
       if (form.validate()) {
         form.save();
-        await locator<FirestoreService>().createConquista(conq, File(image.path));
+        await locator<FirestoreService>().createConquista(conq, File(image!.path));
         nav.pop();
       }
     }
@@ -135,7 +135,7 @@ class NewConquistaPage extends StatelessWidget {
                                 onTap: () {
                                   showDatePicker(
                                     context: context,
-                                    initialDate: field.value,
+                                    initialDate: field.value!,
                                     firstDate: DateTime(2001, 07, 09),
                                     lastDate: DateTime.now().add(Duration(days: 365)),
                                     initialDatePickerMode: DatePickerMode.year,
@@ -144,7 +144,7 @@ class NewConquistaPage extends StatelessWidget {
                                   });
                                 },
                                 title: Text(
-                                  DateFormat("MM/yyyy").format(field.value),
+                                  DateFormat("MM/yyyy").format(field.value!),
                                 ),
                                 trailing: Icon(
                                   Icons.calendar_today,
@@ -160,7 +160,7 @@ class NewConquistaPage extends StatelessWidget {
                       Flexible(
                         flex: 5,
                         child: SwitchFormField(
-                            onSaved: (v) => conq.isOther = !v,
+                            onSaved: (v) => conq.isOther = !(v ?? true),
                             initialValue: true,
                             title: "Principal"),
                       ),
@@ -192,11 +192,11 @@ class NewConquistaPage extends StatelessWidget {
                                   color: Theme.of(context).primaryColor,
                                 ),
                                 onPressed: () async {
-                                  PickedFile image =
+                                  PickedFile? image =
                                       await picker.getImage(source: ImageSource.camera);
                                   if (image != null) {
                                     image = await cropImage(image.path, context);
-                                    if (image != null) field.didChange(image);
+                                    field.didChange(image);
                                   }
                                 },
                               ),
@@ -206,11 +206,11 @@ class NewConquistaPage extends StatelessWidget {
                                   color: Theme.of(context).primaryColor,
                                 ),
                                 onPressed: () async {
-                                  PickedFile image =
+                                  PickedFile? image =
                                       await picker.getImage(source: ImageSource.gallery);
                                   if (image != null) {
                                     image = await cropImage(image.path, context);
-                                    if (image != null) field.didChange(image);
+                                    field.didChange(image);
                                   }
                                 },
                               ),
@@ -219,7 +219,7 @@ class NewConquistaPage extends StatelessWidget {
                             if (field.value != null)
                               AspectRatio(
                                 aspectRatio: 3 / 2,
-                                child: Image.file(File(field.value.path)),
+                                child: Image.file(File(field.value!.path)),
                               ),
                           ],
                         ),

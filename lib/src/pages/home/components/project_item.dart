@@ -9,12 +9,12 @@ import '../../../models/project.dart';
 class ProjectItem extends StatelessWidget {
   final Project project;
   final int tick;
-  ProjectItem(this.project, this.tick, {Key key}) : super(key: key);
+  ProjectItem(this.project, this.tick, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    IconData techIcon = kTechToIcon[project.techs[tick % project.techs.length]];
-    IconData statusIcon = kStatusToIcon[project.status];
+    IconData? techIcon = kTechToIcon[project.techs![tick % project.techs!.length]];
+    IconData? statusIcon = kStatusToIcon[project.status!];
     return InkWell(
       onTap: () => locator<NavigationService>().push("$HomeRoute/${project.id}"),
       child: Container(
@@ -28,7 +28,7 @@ class ProjectItem extends StatelessWidget {
           children: [
             //Background
             ClipRRect(
-              child: project.gallery[0].build(context),
+              child: project.gallery![0].build(context),
               borderRadius: BorderRadius.circular(10),
             ),
             //Hexagon
@@ -46,7 +46,7 @@ class ProjectItem extends StatelessWidget {
               child: Center(
                 child: FittedBox(
                   child: Text(
-                    project.title,
+                    project.title!,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                   ),

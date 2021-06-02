@@ -4,7 +4,7 @@ abstract class HomeState extends Equatable {
   const HomeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class HomeInitial extends HomeState {
@@ -21,10 +21,10 @@ class HomeLoaded extends HomeState {
 }
 
 class HomeError extends HomeState {
-  final String message;
+  final String? message;
 
   HomeError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 
 import '../../../locators.dart';
 import '../../../utils/utils.dart';
@@ -13,16 +14,16 @@ class ProjectCubit extends Cubit<ProjectState> {
     load();
   }
 
-  final firestore = locator<FirestoreService>();
+  final FirestoreService? firestore = locator<FirestoreService>();
   void load() async {
     try {
       emit(ProjectInitial());
-      final project = await firestore.getProject(id);
+      final project = await firestore!.getProject(id);
       emit(ProjectLoaded(project));
     } catch (e) {
-      String m;
+      String? m;
       try {
-        m = e.message;
+        m = (e as PlatformException).message;
       } catch (_) {
         m = e.toString();
       }

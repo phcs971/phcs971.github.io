@@ -9,7 +9,7 @@ import 'componets/conquista_item.dart';
 import 'cubit/conquistas_cubit.dart';
 
 class ConquistasPage extends StatelessWidget {
-  const ConquistasPage({Key key}) : super(key: key);
+  const ConquistasPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,12 @@ class ConquistasPage extends StatelessWidget {
       create: (context) => ConquistasCubit(),
       child: BlocBuilder<ConquistasCubit, ConquistasState>(
         builder: (context, state) {
-          List<Widget> children;
+          List<Widget>? children;
           if (state is ConquistasInitial) {
             children = [LoadingSliver()];
           } else if (state is ConquistasLoaded) {
-            final main = state.conquistas.where((c) => !c.isOther).toList();
-            final other = state.conquistas.where((c) => c.isOther).toList();
+            final main = state.conquistas.where((c) => !c.isOther!).toList();
+            final other = state.conquistas.where((c) => c.isOther!).toList();
             children = [
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),

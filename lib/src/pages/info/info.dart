@@ -4,7 +4,7 @@ import '../basepage/basepage.dart';
 import '../base.dart';
 
 class InfoPage extends StatelessWidget {
-  const InfoPage({Key key}) : super(key: key);
+  const InfoPage({Key? key}) : super(key: key);
 
   static const pad = const EdgeInsets.symmetric(horizontal: 15);
 
@@ -72,7 +72,7 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder((context, info) {
-      bool fullScreen = info.localWidgetSize.width > 700;
+      bool fullScreen = info.localWidgetSize!.width > 700;
       List<Widget> topPart = [
         Padding(
           padding: pad,
@@ -93,7 +93,7 @@ class InfoPage extends StatelessWidget {
             children: [
               Text(
                 "Pedro Henrique Cordeiro Soares",
-                style: Theme.of(context).textTheme.headline4.copyWith(
+                style: Theme.of(context).textTheme.headline4!.copyWith(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,
                     ),

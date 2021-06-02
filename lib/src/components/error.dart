@@ -4,7 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import '../locators.dart';
 
 class ErrorSliver extends StatelessWidget {
-  final String message;
+  final String? message;
   const ErrorSliver(this.message);
 
   @override
@@ -12,8 +12,8 @@ class ErrorSliver extends StatelessWidget {
 }
 
 class ErroWidget extends StatelessWidget {
-  final String message;
-  const ErroWidget(this.message, {Key key}) : super(key: key);
+  final String? message;
+  const ErroWidget(this.message, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,12 @@ class ErroWidget extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w400, fontSize: 24),
           ),
           SizedBox(height: 5),
-          Text(message),
+          Text(message!),
           SizedBox(height: 5),
-          RaisedButton(
-            color: Theme.of(context).primaryColor,
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+            ),
             child: Text(
               "Voltar a Home",
               style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18, color: Colors.white),

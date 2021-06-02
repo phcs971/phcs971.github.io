@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -9,29 +10,29 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  final FirestoreService _firestoreService = locator<FirestoreService>();
+  final FirestoreService? _firestoreService = locator<FirestoreService>();
 
-  Profile _currentUser;
-  Profile get currentUser => _currentUser;
+  Profile? _currentUser;
+  Profile? get currentUser => _currentUser;
 
   Future login() async {
     try {
       log.v("<Auth> Login via Google Start");
       var acc = await _googleSignIn.signIn();
-      final auth = await acc.authentication;
+      final auth = await acc!.authentication;
       log.v("<Auth> Login via Google Credentials / ${auth.accessToken}");
       var res = await _firebaseAuth.signInWithCredential(GoogleAuthProvider.credential(
         accessToken: auth.accessToken,
         idToken: auth.idToken,
       ));
-      await _firestoreService.createUser(Profile.create(res.user.uid, res.user.email));
+      await _firestoreService!.createUser(Profile.create(res.user!.uid, res.user!.email));
       await _populateCurrentUser(res.user);
-      log.i("<Auth> Login via Google Success / UID = ${res?.user?.uid}");
+      log.i("<Auth> Login via Google Success / UID = ${res.user?.uid}");
       return res.user != null;
     } catch (e) {
-      String mes;
+      String? mes;
       try {
-        mes = e.message;
+        mes = (e as PlatformException).message;
       } catch (_) {
         mes = e.toString();
       }
@@ -47,9 +48,9 @@ class AuthService {
     return _firebaseAuth.currentUser != null;
   }
 
-  Future _populateCurrentUser(User user) async {
+  Future _populateCurrentUser(User? user) async {
     log.v("<Auth> Populating current user");
-    if (user != null) _currentUser = await _firestoreService.getUser(user.uid);
+    if (user != null) _currentUser = await _firestoreService!.getUser(user.uid);
   }
 
   Future logOut() async {

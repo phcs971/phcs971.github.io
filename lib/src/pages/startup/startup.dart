@@ -7,7 +7,7 @@ import '../../components/components.dart';
 import 'cubit/startup_cubit.dart';
 
 class StartupPage extends StatelessWidget {
-  const StartupPage({Key key}) : super(key: key);
+  const StartupPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,12 @@ class StartupPage extends StatelessWidget {
                   if (state is StartupWaiting && !kIsWeb)
                     Container(
                       padding: EdgeInsets.only(top: 35, bottom: 25),
-                      child: RaisedButton(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Theme.of(context).primaryColor),
+                        ),
                         onPressed: () => context.read<StartupCubit>().login(),
-                        color: Theme.of(context).primaryColor,
                         child: Container(
                           height: 50,
                           width: 150,

@@ -4,7 +4,7 @@ abstract class ConquistasState extends Equatable {
   const ConquistasState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ConquistasInitial extends ConquistasState {
@@ -21,10 +21,10 @@ class ConquistasLoaded extends ConquistasState {
 }
 
 class ConquistasError extends ConquistasState {
-  final String message;
+  final String? message;
 
   ConquistasError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

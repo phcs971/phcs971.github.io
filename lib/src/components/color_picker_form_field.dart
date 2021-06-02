@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../utils/utils.dart';
 
 class ColorPickerFormField extends StatelessWidget {
-  final Function(Color) onSaved;
-  final Color initialValue;
-  final String title;
+  final Function(Color?)? onSaved;
+  final Color? initialValue;
+  final String? title;
   const ColorPickerFormField({this.onSaved, this.initialValue, this.title});
 
   @override
@@ -29,7 +29,7 @@ class ColorPickerFormField extends StatelessWidget {
               final color = await colorPicker(context, field.value);
               if (color != null) field.didChange(color);
             },
-            title: Text("$title:          #${field.value.value.toRadixString(16).padLeft(8, '0')}"),
+            title: Text("$title:          #${field.value!.value.toRadixString(16).padLeft(8, '0')}"),
             trailing: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
               radius: 17,

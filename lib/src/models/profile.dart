@@ -1,7 +1,7 @@
 class Profile {
-  final String id;
-  final String email;
-  final bool admin;
+  final String? id;
+  final String? email;
+  final bool? admin;
 
   Profile.create(this.id, this.email) : admin = false;
 

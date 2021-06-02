@@ -19,7 +19,7 @@ class ExtraTechIcons {
   ExtraTechIcons._();
 
   static const _kFontFam = 'ExtraTechIcons';
-  static const _kFontPkg = null;
+  static const dynamic _kFontPkg = null;
 
   static const IconData flutter = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData witai = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);

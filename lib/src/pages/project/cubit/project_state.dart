@@ -4,7 +4,7 @@ abstract class ProjectState extends Equatable {
   const ProjectState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ProjectInitial extends ProjectState {
@@ -21,10 +21,10 @@ class ProjectLoaded extends ProjectState {
 }
 
 class ProjectError extends ProjectState {
-  final String message;
+  final String? message;
 
   ProjectError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

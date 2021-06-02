@@ -10,9 +10,9 @@ import '../base.dart';
 import '../../locators.dart';
 
 class BasePage extends StatelessWidget {
-  final int index;
-  final List<Widget> children;
-  final GlobalKey<ScaffoldState> scKey;
+  final int? index;
+  final List<Widget>? children;
+  final GlobalKey<ScaffoldState>? scKey;
   const BasePage({this.children, this.index, this.scKey});
 
   static final pages = [
@@ -39,8 +39,8 @@ class BasePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final key = scKey == null ? GlobalKey<ScaffoldState>() : scKey;
 
-    final nav = locator<NavigationService>();
-    final auth = locator<AuthService>();
+    final NavigationService? nav = locator<NavigationService>();
+    final AuthService? auth = locator<AuthService>();
 
     return ResponsiveBuilder(
       (context, info) {
@@ -50,19 +50,19 @@ class BasePage extends StatelessWidget {
             width: 36 +
                 textWidth(
                   item['title'],
-                  Theme.of(context).textTheme.button.copyWith(fontWeight: FontWeight.bold),
+                  Theme.of(context).textTheme.button!.copyWith(fontWeight: FontWeight.bold),
                 ),
             margin: const EdgeInsets.only(left: 8.0),
-            child: FlatButton(
+            child: TextButton(
               child: Text(
-                item['title'],
-                style: Theme.of(context).textTheme.button.copyWith(
+                item['title']!,
+                style: Theme.of(context).textTheme.button!.copyWith(
                       fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
                       decoration: TextDecoration.underline,
                       color: Theme.of(context).primaryColor,
                     ),
               ),
-              onPressed: isCurrent ? null : () => nav.popAllTo(item['route']),
+              onPressed: isCurrent ? null : () => nav!.popAllTo(item['route']!),
             ),
           );
         }).toList();
@@ -73,7 +73,7 @@ class BasePage extends StatelessWidget {
             tooltip: kLinkToString[link.type],
             onPressed: () async {
               try {
-                await launch(link.url);
+                await launch(link.url!);
               } catch (_) {
                 cannotLaunchUrl(context);
               }
@@ -85,14 +85,14 @@ class BasePage extends StatelessWidget {
           icon: Icon(Icons.logout, color: Theme.of(context).primaryColor),
           tooltip: "Sair",
           onPressed: () async {
-            await auth.logOut();
-            nav.popAllTo(StartupRoute);
+            await auth!.logOut();
+            nav!.popAllTo(StartupRoute);
           },
         );
 
         Widget divider = Container(height: 1, color: Colors.black45);
 
-        bool fullScreen = info.localWidgetSize.width > 1050;
+        bool fullScreen = info.localWidgetSize!.width > 1050;
         return Scaffold(
           key: key,
           backgroundColor: Colors.white,
@@ -107,7 +107,7 @@ class BasePage extends StatelessWidget {
                   bottom: 0,
                   child: CustomScrollView(
                     slivers: [
-                      ...children,
+                      ...children!,
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
@@ -178,10 +178,10 @@ class BasePage extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: FittedBox(
                           child: Text(
-                            info.localWidgetSize.width > 700
+                            info.localWidgetSize!.width > 700
                                 ? "Pedro Henrique Cordeiro Soares"
                                 : "Pedro Soares",
-                            style: Theme.of(context).textTheme.headline4.copyWith(
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
                                   color: Theme.of(context).primaryColor,
                                 ),
                           ),
@@ -198,7 +198,7 @@ class BasePage extends StatelessWidget {
                       IconButton(
                         tooltip: 'Menu',
                         onPressed: () {
-                          key.currentState.openEndDrawer();
+                          key!.currentState!.openEndDrawer();
                         },
                         icon: Icon(Icons.menu, color: Theme.of(context).primaryColor),
                       ),
@@ -226,11 +226,11 @@ class BasePage extends StatelessWidget {
                     ),
                   ),
                 ),
-          floatingActionButton: !kIsWeb && auth.currentUser.admin && [0, 1].contains(index)
+          floatingActionButton: !kIsWeb && auth!.currentUser!.admin! && [0, 1].contains(index)
               ? FloatingActionButton(
                   onPressed: () {
-                    if (index == 0) return nav.push(NewProjectRoute);
-                    if (index == 1) return nav.push(NewConquistaRoute);
+                    if (index == 0) nav!.push(NewProjectRoute);
+                    if (index == 1) nav!.push(NewConquistaRoute);
                   },
                   backgroundColor: Theme.of(context).primaryColor,
                   child: Icon(Icons.add),
@@ -254,7 +254,7 @@ class IShadowPainter extends CustomPainter {
       ..lineTo(size.width, 75)
       ..lineTo(size.width, 0)
       ..close();
-    var shadows = kElevationToShadow[elevation];
+    var shadows = kElevationToShadow[elevation]!;
     for (var p in shadows.map((s) => s.toPaint())) canvas.drawPath(path, p);
   }
 
@@ -276,7 +276,7 @@ class LShadowPainter extends CustomPainter {
       ..lineTo(size.width, size.height)
       ..lineTo(size.width, 0)
       ..close();
-    var shadows = kElevationToShadow[elevation];
+    var shadows = kElevationToShadow[elevation]!;
     for (var p in shadows.map((s) => s.toPaint())) canvas.drawPath(path, p);
   }
 

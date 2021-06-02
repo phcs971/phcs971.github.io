@@ -12,7 +12,7 @@ import 'components/gallery.dart';
 
 class ProjectPage extends StatelessWidget {
   final String id;
-  const ProjectPage(this.id, {Key key}) : super(key: key);
+  const ProjectPage(this.id, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,11 @@ class ProjectPage extends StatelessWidget {
         create: (context) => ProjectCubit(id),
         child: BlocBuilder<ProjectCubit, ProjectState>(
           builder: (context, state) {
-            List<Widget> children;
+            List<Widget>? children;
             if (state is ProjectInitial) {
               children = [LoadingSliver()];
             } else if (state is ProjectLoaded) {
-              bool fullScreen = info.localWidgetSize.width > 1000;
+              bool fullScreen = info.localWidgetSize!.width > 1000;
 
               children = [
                 SliverToBoxAdapter(
@@ -45,8 +45,8 @@ class ProjectPage extends StatelessWidget {
                           onPressed: locator<NavigationService>().pop,
                         ),
                         title: Text(
-                          state.project.title,
-                          style: Theme.of(context).textTheme.headline4.copyWith(
+                          state.project.title!,
+                          style: Theme.of(context).textTheme.headline4!.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: state.project.mainColor,
                               ),

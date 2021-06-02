@@ -12,7 +12,7 @@ class StorageService {
     log.v("<Storage> Saving foto Conquista $id");
     final ref = storage.ref().child("achievements/$id/${file.path.split("/").last}");
     final task = ref.putFile(file);
-    await task.onComplete;
+    await task;
     log.i("<Storage> Saving foto Conquista $id Success");
     return await ref.getDownloadURL();
   }
@@ -27,8 +27,8 @@ class StorageService {
       i++;
       final ref = strref.child(file.path.split("/").last);
       final task = ref.putFile(file);
-      await task.onComplete;
-      urls.add(GalleryItem.url(await ref.getDownloadURL() as String));
+      await task;
+      urls.add(GalleryItem.url(await ref.getDownloadURL()));
     }
     log.i("<Storage> Saving fotos Projeto $id Success");
     return urls;

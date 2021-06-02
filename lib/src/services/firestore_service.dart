@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 
 import '../locators.dart';
 import '../models/models.dart';
@@ -21,8 +22,8 @@ class FirestoreService {
   Future<Project> getProject(String id) async {
     log.v("<Firestore> Getting Project $id");
     final doc = await firestore.collection('projects').doc(id).get();
-    log.v("<Firestore> Got Project $id -> ${doc.data()['title']}");
-    return Project.fromMap(doc.data());
+    log.v("<Firestore> Got Project $id -> ${doc.data()!['title']}");
+    return Project.fromMap(doc.data()!);
   }
 
   Future<List<Conquista>> getConquistas() async {
@@ -41,7 +42,7 @@ class FirestoreService {
         await firestore.collection("users").doc(user.id).set(user.toMap());
         log.i("<Firestore> Creating user ${user.id} success");
       } catch (e) {
-        log.e("<Firestore> Creating user ${user.id} failed / ${e.message}");
+        log.e("<Firestore> Creating user ${user.id} failed / ${(e as PlatformException).message}");
         return e.message;
       }
     }
@@ -51,19 +52,18 @@ class FirestoreService {
     try {
       log.v("<Firestore> Requesting user $uid");
       var userData = await firestore.collection("users").doc(uid).get();
-      assert(userData != null && userData.data() != null && userData.data().isNotEmpty,
-          "USER_NOT_FOUND");
+      assert(userData.data() != null && userData.data()!.isNotEmpty, "USER_NOT_FOUND");
       log.v("<Firestore> Requesting user $uid success");
-      return Profile.fromMap(userData.data());
+      return Profile.fromMap(userData.data()!);
     } catch (e) {
-      log.e("<Firestore> Requesting user $uid failed / ${e.message}");
+      log.e("<Firestore> Requesting user $uid failed / ${(e as PlatformException).message}");
       return e.message;
     }
   }
 
-  Future<bool> userExists(String uid) async {
+  Future<bool> userExists(String? uid) async {
     var userData = await firestore.collection("users").doc(uid).get();
-    return userData != null && userData.data() != null && userData.data().isNotEmpty;
+    return userData.data() != null && userData.data()!.isNotEmpty;
   }
 
   Future createConquista(Conquista conquista, File file) async {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SwitchFormField extends StatelessWidget {
-  final Function(bool) onSaved;
-  final bool initialValue;
-  final String title;
+  final Function(bool?)? onSaved;
+  final bool? initialValue;
+  final String? title;
   const SwitchFormField({this.onSaved, this.initialValue, this.title});
 
   @override
@@ -24,7 +24,7 @@ class SwitchFormField extends StatelessWidget {
           ),
           child: ListTile(
             title: Text("$title:"),
-            trailing: Switch.adaptive(onChanged: field.didChange, value: field.value),
+            trailing: Switch.adaptive(onChanged: field.didChange, value: field.value!),
           ),
         );
       },

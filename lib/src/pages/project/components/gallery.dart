@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../models/models.dart';
 
 class GalleryWidget extends StatelessWidget {
-  final List<GalleryItem> gallery;
-  final Color backgroundColor;
-  GalleryWidget(this.gallery, {Key key, this.backgroundColor = Colors.white}) : super(key: key);
+  final List<GalleryItem>? gallery;
+  final Color? backgroundColor;
+  GalleryWidget(this.gallery, {Key? key, this.backgroundColor = Colors.white}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class GalleryWidget extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Container(child: gallery[index].build(context), color: backgroundColor),
+            child: Container(child: gallery![index].build(context), color: backgroundColor),
           ),
         ),
-        itemCount: gallery.length,
+        itemCount: gallery!.length,
       ),
     );
   }

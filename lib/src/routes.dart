@@ -22,7 +22,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
   log.i('<Router> To ${settings.name}');
 
-  List<String> routeArgs = settings.name.split('/').where((str) => str.isNotEmpty).toList();
+  List<String> routeArgs = settings.name!.split('/').where((str) => str.isNotEmpty).toList();
   String routeName = routeArgs.isEmpty ? "/" : "/${routeArgs.removeAt(0)}";
 
   switch (routeName) {
@@ -47,16 +47,16 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 }
 
 class FadePageRoute<T> extends PageRoute<T> {
-  final Widget page;
+  final Widget? page;
   final RouteSettings settings;
 
-  FadePageRoute({this.page, this.settings}) : super(settings: settings);
+  FadePageRoute({this.page, required this.settings}) : super(settings: settings);
 
   @override
   Color get barrierColor => Colors.transparent;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,

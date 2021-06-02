@@ -12,21 +12,21 @@ class StartupCubit extends Cubit<StartupState> {
     _startup();
   }
 
-  final nav = locator<NavigationService>();
-  final auth = locator<AuthService>();
+  final NavigationService? nav = locator<NavigationService>();
+  final AuthService? auth = locator<AuthService>();
 
   void _startup() async {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (kIsWeb) return nav.to(HomeRoute);
-      if (await auth.hasUser()) return nav.to(HomeRoute);
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      if (kIsWeb) return nav!.to(HomeRoute);
+      if (await auth!.hasUser()) return nav!.to(HomeRoute);
       login();
     });
   }
 
   void login() async {
     if (state is StartupWaiting) emit(StartupLoading());
-    final res = await auth.login();
-    if (res is bool && res) return nav.to(HomeRoute);
+    final res = await auth!.login();
+    if (res is bool && res) return nav!.to(HomeRoute);
     emit(StartupWaiting());
   }
 }
