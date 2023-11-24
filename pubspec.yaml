@@ -16,16 +16,9 @@ dependencies:
   flutter_triple: ^3.0.0
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.6
   flutter_test:
     sdk: flutter
-
-#dart run flutter_launcher_icons:main
-flutter_icons:
-  ios: false
-  android: true
-  image_path: "assets/branding/icon.png"
 
 # dart run flutter_native_splash:create
 flutter_native_splash:
