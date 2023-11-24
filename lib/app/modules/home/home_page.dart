@@ -14,9 +14,9 @@ class _HomePageState extends State<HomePage> {
     return InteractiveBuilder((context, device) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Dragonfly Studios'),
+          title: const Text('Dragonfly Studios'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('Hello World'),
         ),
       );
