@@ -16,6 +16,7 @@ dependencies:
   flutter_modular: ^6.3.2
   flutter_svg: ^2.0.9
   flutter_triple: ^3.0.0
+  url_launcher: ^6.2.2
 
 dev_dependencies:
   flutter_lints: ^3.0.1
@@ -34,6 +35,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/illustrations/
+    - assets/projects/
+    - assets/projects/podi/
+    - assets/projects/market4u/
+    - assets/link/
+    - assets/tech/
+    - assets/branding/
   # fonts:
   #   - family: Schyler
   #     fonts:

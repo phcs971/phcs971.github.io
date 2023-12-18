@@ -1,21 +1,23 @@
 import 'package:dragonflylabs/app/design/colors.dart';
+import 'package:dragonflylabs/app/models/link_model.dart';
 import 'package:dragonflylabs/app/widgets/custom_app_bar.dart';
 import 'package:dragonflylabs/app/widgets/interactive_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ContactPage extends StatefulWidget {
+  const ContactPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ContactPage> createState() => _ContactPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ContactPageState extends State<ContactPage> {
   final ScrollController _scrollController = ScrollController();
 
   bool _scrolled = false;
+  final node = FocusNode();
 
   @override
   void initState() {
@@ -38,9 +40,9 @@ class _HomePageState extends State<HomePage> {
   Widget _buildImage(BuildContext context) {
     return Center(
       child: AspectRatio(
-        aspectRatio: 551 / 480,
+        aspectRatio: 2 / 3,
         child: SvgPicture.asset(
-          "assets/illustrations/developer.svg",
+          "assets/illustrations/contact.svg",
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -49,75 +51,69 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildBody(BuildContext context) {
     final device = Device.of(context);
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Engineering Solutions",
-            style: TextStyle(
-              fontSize: device.fold(24, 48),
-              color: AppColors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(
-            height: device.fold(4, 16),
-            width: double.infinity,
-          ),
-          Text(
-            "Our lab develops specific solutions for any problem you might have. We specialize in different areas, like mobile development, system automations, and sports technologies.",
-            style: TextStyle(
-              fontSize: device.fold(16, 32),
-              color: AppColors.white,
-            ),
-          ),
-          SizedBox(
-            height: device.fold(16, 32),
-            width: double.infinity,
-          ),
-          Row(
-            mainAxisAlignment: device.fold(
-              MainAxisAlignment.center,
-              MainAxisAlignment.start,
-            ),
-            children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.white,
-                  padding: EdgeInsets.symmetric(
-                    vertical: device.fold(16, 24),
-                    horizontal: 24,
-                  ),
-                  shape: const RoundedRectangleBorder(),
-                  textStyle: TextStyle(
-                    fontSize: device.fold(14, 24),
-                  ),
-                ),
-                onPressed: () => Modular.to.pushNamed("/work"),
-                child: const Text("Our work"),
+    const links = [
+      LinkModel(
+        type: LinkType.email,
+        hint: "phcs.971@gmail.com",
+        url: "mailto:phcs.971@gmail.com",
+      ),
+      LinkModel(
+        type: LinkType.github,
+        hint: "@phcs971",
+        url: "https://github.com/phcs971",
+      ),
+      LinkModel(
+        type: LinkType.linkedin,
+        hint: "@phcs971",
+        url: "https://www.linkedin.com/in/phcs971/",
+      ),
+    ];
+    return SelectableRegion(
+      focusNode: node,
+      selectionControls: materialTextSelectionControls,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "You can contact us through",
+              style: TextStyle(
+                fontSize: device.fold(24, 48),
+                color: AppColors.white,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(width: 32),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: AppColors.white,
-                  backgroundColor: AppColors.white.withOpacity(.1),
-                  padding: EdgeInsets.symmetric(
-                    vertical: device.fold(16, 24),
-                    horizontal: 24,
-                  ),
-                  shape: const RoundedRectangleBorder(),
-                  textStyle: TextStyle(
-                    fontSize: device.fold(14, 24),
+            ),
+            for (final link in links) ...[
+              SizedBox(
+                height: device.fold(4, 16),
+                width: double.infinity,
+              ),
+              ListTile(
+                leading: Tooltip(
+                  message: link.type.title,
+                  child: SvgPicture.asset(
+                    link.type.icon,
+                    height: device.fold(24, 48),
+                    width: device.fold(24, 48),
+                    colorFilter: const ColorFilter.mode(
+                      AppColors.yellow,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
-                onPressed: () => Modular.to.pushNamed("/contact"),
-                child: const Text("Contact us"),
+                title: Text(
+                  link.hint ?? link.type.title,
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: device.fold(16, 32),
+                  ),
+                ),
+                onTap: () => launchUrlString(link.url),
               ),
             ],
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -127,7 +123,7 @@ class _HomePageState extends State<HomePage> {
     return InteractiveBuilder((context, device) {
       return Scaffold(
         appBar: CustomAppBar(
-          AppBarState.home,
+          AppBarState.contact,
           deviceType: device,
           scrolled: _scrolled,
         ),
@@ -146,14 +142,16 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         const SizedBox(width: 80),
                         Expanded(
-                          child: _buildBody(context),
+                          flex: 1,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxHeight: 700),
+                            child: _buildImage(context),
+                          ),
                         ),
                         const SizedBox(width: 80),
                         Expanded(
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxHeight: 450),
-                            child: _buildImage(context),
-                          ),
+                          flex: 2,
+                          child: _buildBody(context),
                         ),
                         const SizedBox(width: 80),
                       ],

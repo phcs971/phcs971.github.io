@@ -11,6 +11,36 @@ enum DeviceType {
       return DeviceType.mobile;
     }
   }
+
+  T fold<T>(T mobile, T desktop) {
+    switch (this) {
+      case DeviceType.mobile:
+        return mobile;
+      case DeviceType.desktop:
+        return desktop;
+    }
+  }
+}
+
+class Device extends InheritedWidget {
+  final DeviceType deviceType;
+
+  const Device({
+    required this.deviceType,
+    required super.child,
+    super.key,
+  });
+
+  static DeviceType of(BuildContext context) {
+    final device =
+        context.dependOnInheritedWidgetOfExactType<Device>()?.deviceType;
+    return device ?? DeviceType.mobile;
+  }
+
+  @override
+  bool updateShouldNotify(Device oldWidget) {
+    return deviceType != oldWidget.deviceType;
+  }
 }
 
 class InteractiveBuilder extends StatelessWidget {
@@ -37,7 +67,10 @@ class InteractiveBuilder extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final deviceType = DeviceType.getDeviceType(constraints.maxWidth);
-        return builder(context, deviceType);
+        return Device(
+          deviceType: deviceType,
+          child: Builder(builder: (context) => builder(context, deviceType)),
+        );
       },
     );
   }

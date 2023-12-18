@@ -14,6 +14,13 @@ class AppColors {
     50: Color(0xFFF2F3FF),
   });
 
+  static final gradient = RadialGradient(
+    colors: [
+      AppColors.blue.shade800,
+      AppColors.blue,
+    ],
+  );
+
   static const white = Color(0xFFFBFAF8);
   static const yellow = Color(0xFFFF9300);
   static const orange = Color(0xFFC1340A);
